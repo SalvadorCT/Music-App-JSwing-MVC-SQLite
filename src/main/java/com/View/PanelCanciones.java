@@ -2,7 +2,6 @@ package com.View;
 
 import javax.swing.*;
 import java.awt.*;
-import java.util.List;
 
 public class PanelCanciones extends JPanel {
     private JTable tablaCanciones;

@@ -4,12 +4,12 @@ import javax.swing.*;
 import java.awt.*;
 
 public class VentanaRegistro extends JFrame {
-    private JTextField campoNombre;
-    private JTextField campoCorreo;
-    private JPasswordField campoContrasena;
-    private JPasswordField campoConfirmarContrasena;
-    private JButton botonRegistrar;
-    private JButton botonVolver;
+    private final JTextField campoNombre;
+    private final JTextField campoCorreo;
+    private final JPasswordField campoContrasena;
+    private final JPasswordField campoConfirmarContrasena;
+    private final JButton botonRegistrar;
+    private final JButton botonVolver;
 
     public VentanaRegistro() {
         setTitle("Registro de Usuario");
