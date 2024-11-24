@@ -6,7 +6,7 @@ import java.sql.SQLException;
 
 public class DatabaseConnection {
     private static Connection connection;
-    private static final String DATABASE_URL = "jdbc:sqlite:musica.db";
+    private static final String DATABASE_URL = "jdbc:sqlite:src/main/java/com/musica.db";
 
 
 
