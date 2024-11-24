@@ -4,6 +4,7 @@
     <data-source source="LOCAL" name="musica" uuid="463a0333-6350-4ccf-9398-86c7560f593b">
       <driver-ref>sqlite.xerial</driver-ref>
       <synchronize>true</synchronize>
+      <configured-by-url>true</configured-by-url>
       <jdbc-driver>org.sqlite.JDBC</jdbc-driver>
       <jdbc-url>jdbc:sqlite:D:\Proyectos\Java\Music-App-JSwing-MVC-SQLite\src\main\musica.db</jdbc-url>
       <jdbc-additional-properties>
