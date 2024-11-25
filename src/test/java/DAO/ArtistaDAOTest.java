@@ -1,4 +1,3 @@
-// src/test/java/DAO/ArtistaDAOTest.java
 package DAO;
 
 import com.models.Artista;
@@ -45,9 +44,9 @@ class ArtistaDAOTest {
         artista.setGenero("Rock");
         artista.setPaisOrigen("USA");
 
-        artistaDAO.insertarArtista(artista);
+        artistaDAO.insertar(artista);
 
-        List<Artista> artistas = artistaDAO.obtenerArtistas();
+        List<Artista> artistas = artistaDAO.obtenerTodos();
         assertNotNull(artistas);
         assertFalse(artistas.isEmpty());
         assertEquals("Artista Prueba", artistas.get(0).getNombre());
@@ -60,17 +59,17 @@ class ArtistaDAOTest {
         artista.setGenero("Pop");
         artista.setPaisOrigen("UK");
 
-        artistaDAO.insertarArtista(artista);
+        artistaDAO.insertar(artista);
 
-        artistaDAO.eliminarArtista(artista.getArtistaId());
+        artistaDAO.eliminar(artista.getArtistaId());
 
-        Optional<Artista> artistaObtenido = artistaDAO.obtenerArtistaPorId(artista.getArtistaId());
+        Optional<Artista> artistaObtenido = artistaDAO.obtenerPorId(artista.getArtistaId());
         assertTrue(artistaObtenido.isEmpty());
     }
 
     @Test
     void eliminarArtistaInexistente() {
-        assertThrows(SQLException.class, () -> artistaDAO.eliminarArtista(-1));
+        assertThrows(SQLException.class, () -> artistaDAO.eliminar(-1));
     }
 
     @Test
@@ -80,20 +79,19 @@ class ArtistaDAOTest {
         artista.setGenero("Jazz");
         artista.setPaisOrigen("France");
 
-        artistaDAO.insertarArtista(artista);
+        artistaDAO.insertar(artista);
 
-        Optional<Artista> artistaObtenido = artistaDAO.obtenerArtistaPorId(artista.getArtistaId());
+        Optional<Artista> artistaObtenido = artistaDAO.obtenerPorId(artista.getArtistaId());
         assertTrue(artistaObtenido.isPresent());
         assertEquals("Artista Existente", artistaObtenido.get().getNombre());
     }
 
     @Test
     void obtenerArtistaPorIdInexistente() throws SQLException {
-        Optional<Artista> artistaObtenido = artistaDAO.obtenerArtistaPorId(-1);
+        Optional<Artista> artistaObtenido = artistaDAO.obtenerPorId(-1);
         assertTrue(artistaObtenido.isEmpty());
     }
 
-    // src/test/java/DAO/ArtistaDAOTest.java
     @Test
     void actualizarArtistaExistente() throws SQLException {
         Artista artista = new Artista();
@@ -101,12 +99,12 @@ class ArtistaDAOTest {
         artista.setGenero("Blues");
         artista.setPaisOrigen("Canada");
 
-        artistaDAO.insertarArtista(artista);
+        artistaDAO.insertar(artista);
 
         artista.setNombre("Artista Actualizado");
-        artistaDAO.actualizarArtista(artista);
+        artistaDAO.actualizar(artista);
 
-        Optional<Artista> artistaActualizado = artistaDAO.obtenerArtistaPorId(artista.getArtistaId());
+        Optional<Artista> artistaActualizado = artistaDAO.obtenerPorId(artista.getArtistaId());
         assertTrue(artistaActualizado.isPresent());
         assertEquals("Artista Actualizado", artistaActualizado.get().getNombre());
     }
@@ -119,6 +117,6 @@ class ArtistaDAOTest {
         artista.setGenero("Classical");
         artista.setPaisOrigen("Germany");
 
-        assertThrows(SQLException.class, () -> artistaDAO.actualizarArtista(artista));
+        assertThrows(SQLException.class, () -> artistaDAO.actualizar(artista));
     }
 }

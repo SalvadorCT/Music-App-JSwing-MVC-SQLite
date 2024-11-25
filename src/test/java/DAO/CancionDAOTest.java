@@ -45,9 +45,9 @@ class CancionDAOTest {
         cancion.setUrlArchivo("http://archivo.com/cancion.mp3");
         cancion.setConteoReproducciones(100);
 
-        cancionDAO.insertarCancion(cancion);
+        cancionDAO.insertar(cancion);
 
-        var canciones = cancionDAO.obtenerCanciones();
+        var canciones = cancionDAO.obtenerTodos();
 
         assertNotNull(canciones);
         assertFalse(canciones.isEmpty());
@@ -63,9 +63,9 @@ class CancionDAOTest {
         cancion.setUrlArchivo("http://archivo.com/otra_cancion.mp3");
         cancion.setConteoReproducciones(50);
 
-        cancionDAO.insertarCancion(cancion);
+        cancionDAO.insertar(cancion);
 
-        var canciones = cancionDAO.obtenerCanciones();
+        var canciones = cancionDAO.obtenerTodos();
 
         assertNotNull(canciones);
         assertTrue(canciones.stream().anyMatch(c -> c.getTitulo().equals("Otra Cancion")));
@@ -80,7 +80,7 @@ class CancionDAOTest {
         cancion.setUrlArchivo(null);
         cancion.setConteoReproducciones(0);
 
-        assertThrows(SQLException.class, () -> cancionDAO.insertarCancion(cancion));
+        assertThrows(SQLException.class, () -> cancionDAO.insertar(cancion));
     }
 
     @Test
@@ -92,8 +92,8 @@ class CancionDAOTest {
         cancion.setUrlArchivo("http://archivo.com/existente.mp3");
         cancion.setConteoReproducciones(200);
 
-        cancionDAO.insertarCancion(cancion);
-        Optional<Cancion> cancionObtenida = cancionDAO.obtenerCancionPorId(cancion.getCancionId());
+        cancionDAO.insertar(cancion);
+        Optional<Cancion> cancionObtenida = cancionDAO.obtenerPorId(cancion.getCancionId());
 
         assertNotNull(cancionObtenida);
         assertEquals("Cancion Existente", cancionObtenida.get().getTitulo());
@@ -101,7 +101,7 @@ class CancionDAOTest {
 
     @Test
     void obtenerCancionPorIdInexistente() throws SQLException {
-        Optional<Cancion> cancionObtenida = cancionDAO.obtenerCancionPorId(-1);
+        Optional<Cancion> cancionObtenida = cancionDAO.obtenerPorId(-1);
         assertEquals(Optional.empty(), cancionObtenida);
     }
 
@@ -116,7 +116,7 @@ class CancionDAOTest {
         cancion.setUrlArchivo("http://archivo.com/inexistente.mp3");
         cancion.setConteoReproducciones(0);
 
-        assertThrows(SQLException.class, () -> cancionDAO.actualizarCancion(cancion));
+        assertThrows(SQLException.class, () -> cancionDAO.actualizar(cancion));
     }
 
     @Test
@@ -128,10 +128,10 @@ class CancionDAOTest {
         cancion.setUrlArchivo("http://archivo.com/eliminar.mp3");
         cancion.setConteoReproducciones(200);
 
-        cancionDAO.insertarCancion(cancion);
-        cancionDAO.eliminarCancion(cancion.getCancionId());
+        cancionDAO.insertar(cancion);
+        cancionDAO.eliminar(cancion.getCancionId());
 
-        var canciones = cancionDAO.obtenerCanciones();
+        var canciones = cancionDAO.obtenerTodos();
         assertFalse(canciones.stream().anyMatch(c -> c.getTitulo().equals("Cancion a Eliminar")));
     }
 }

@@ -13,25 +13,23 @@ import java.sql.SQLException;
 import java.util.List;
 import java.util.Optional;
 
-public class CancionDAO extends BaseDAO<Cancion> {
+public class CancionDAO extends BaseDAO<Cancion> implements IRepository<Cancion> {
 
-    // Logger para registrar información y errores
     private static final Logger logger = LoggerFactory.getLogger(CancionDAO.class);
     private final QueryRunner queryRunner;
 
-    // Constructor que recibe una conexión existente
     public CancionDAO(Connection connection) {
         super(connection);
         this.queryRunner = new QueryRunner();
     }
 
-    // Constructor que crea una nueva conexión
     public CancionDAO() throws SQLException {
         super();
         this.queryRunner = new QueryRunner();
     }
 
-    public void insertarCancion(Cancion cancion) throws SQLException {
+    @Override
+    public void insertar(Cancion cancion) throws SQLException {
         String sql = "INSERT INTO Canciones (titulo, duracion, album_id, url_archivo, conteo_reproducciones) VALUES (?, ?, ?, ?, ?)";
         Object[] params = {
                 cancion.getTitulo(),
@@ -51,7 +49,8 @@ public class CancionDAO extends BaseDAO<Cancion> {
         }
     }
 
-    public void eliminarCancion(int id) throws SQLException {
+    @Override
+    public void eliminar(int id) throws SQLException {
         String sql = "DELETE FROM Canciones WHERE cancion_id = ?";
         try {
             // Ejecuta la eliminación y verifica si se afectaron filas
@@ -65,7 +64,8 @@ public class CancionDAO extends BaseDAO<Cancion> {
         }
     }
 
-    public void actualizarCancion(Cancion cancion) throws SQLException {
+    @Override
+    public void actualizar(Cancion cancion) throws SQLException {
         String sql = "UPDATE Canciones SET titulo = ?, duracion = ?, album_id = ?, url_archivo = ?, conteo_reproducciones = ? WHERE cancion_id = ?";
         Object[] params = {
                 cancion.getTitulo(),
@@ -88,7 +88,8 @@ public class CancionDAO extends BaseDAO<Cancion> {
         }
     }
 
-    public List<Cancion> obtenerCanciones() throws SQLException {
+    @Override
+    public List<Cancion> obtenerTodos() throws SQLException {
         String sql = "SELECT * FROM Canciones";
         try {
             // Ejecuta la consulta y mapea los resultados a objetos Cancion
@@ -99,7 +100,8 @@ public class CancionDAO extends BaseDAO<Cancion> {
         }
     }
 
-    public Optional<Cancion> obtenerCancionPorId(int id) throws SQLException {
+    @Override
+    public Optional<Cancion> obtenerPorId(int id) throws SQLException {
         String sql = "SELECT * FROM Canciones WHERE cancion_id = ?";
         try {
             // Ejecuta la consulta y mapea el resultado a un objeto Cancion
@@ -110,5 +112,4 @@ public class CancionDAO extends BaseDAO<Cancion> {
             throw e;
         }
     }
-
 }

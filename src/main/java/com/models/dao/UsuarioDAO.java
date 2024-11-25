@@ -1,6 +1,5 @@
 package com.models.dao;
 
-
 import com.models.Usuario;
 import org.apache.commons.dbutils.QueryRunner;
 import org.apache.commons.dbutils.handlers.BeanListHandler;
@@ -14,7 +13,7 @@ import java.sql.SQLException;
 import java.util.List;
 import java.util.Optional;
 
-public class UsuarioDAO extends BaseDAO<Usuario>{
+public class UsuarioDAO extends BaseDAO<Usuario> implements IRepository<Usuario>{
     private static final Logger logger = LoggerFactory.getLogger(UsuarioDAO.class);
     private final QueryRunner queryRunner;
 
@@ -28,7 +27,8 @@ public class UsuarioDAO extends BaseDAO<Usuario>{
         this.queryRunner = new QueryRunner();
     }
 
-    public void insertarUsuario(Usuario usuario) throws SQLException {
+    @Override
+    public void insertar(Usuario usuario) throws SQLException {
         String sql = "INSERT INTO Usuarios (nombre, email, tipo_suscripcion, fecha_creacion, contrasena_hash) VALUES (?, ?, ?, ?, ?)";
         Object[] params = {
                 usuario.getNombre(),
@@ -46,8 +46,9 @@ public class UsuarioDAO extends BaseDAO<Usuario>{
             throw e;
         }
     }
-
-    public void eliminarUsuario(int id) throws SQLException {
+    
+    @Override
+    public void eliminar(int id) throws SQLException {
         String sql = "DELETE FROM Usuarios WHERE usuario_id = ?";
         try {
             int affectedRows = queryRunner.update(connection, sql, id);
@@ -60,7 +61,31 @@ public class UsuarioDAO extends BaseDAO<Usuario>{
         }
     }
 
-    public List<Usuario> obtenerUsuarios() throws SQLException {
+    @Override
+    public void actualizar(Usuario usuario) throws SQLException {
+        String sql = "UPDATE Usuarios SET nombre = ?, email = ?, tipo_suscripcion = ?, fecha_creacion = ?, contrasena_hash = ? WHERE usuario_id = ?";
+        Object[] params = {
+                usuario.getNombre(),
+                usuario.getEmail(),
+                usuario.getTipoSuscripcion(),
+                usuario.getFechaCreacion(),
+                usuario.getContrasenaHash(),
+                usuario.getUsuarioId()
+        };
+
+        try {
+            int affectedRows = queryRunner.update(connection, sql, params);
+            if (affectedRows == 0) {
+                throw new SQLException("No se actualizó ninguna fila, el usuario con ID " + usuario.getUsuarioId() + " no existe.");
+            }
+        } catch (SQLException e) {
+            logger.error("Error al actualizar usuario: {}", e.getMessage(), e);
+            throw e;
+        }
+    }
+
+    @Override
+    public List<Usuario> obtenerTodos() throws SQLException {
         String sql = "SELECT * FROM Usuarios";
         try {
             return queryRunner.query(connection, sql, new BeanListHandler<>(Usuario.class));
@@ -70,7 +95,8 @@ public class UsuarioDAO extends BaseDAO<Usuario>{
         }
     }
 
-    public Optional<Usuario> obtenerUsuarioPorId(int id) throws SQLException {
+    @Override
+    public Optional<Usuario> obtenerPorId(int id) throws SQLException {
         String sql = "SELECT * FROM Usuarios WHERE usuario_id = ?";
         try {
             Usuario usuario = queryRunner.query(connection, sql, new BeanHandler<>(Usuario.class), id);

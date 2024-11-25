@@ -14,7 +14,7 @@ import java.sql.SQLException;
 import java.util.List;
 import java.util.Optional;
 
-public class PerfilUsuarioDAO extends BaseDAO<PerfilUsuario> {
+public class PerfilUsuarioDAO extends BaseDAO<PerfilUsuario> implements IRepository<PerfilUsuario>{
     private static final Logger logger = LoggerFactory.getLogger(PerfilUsuarioDAO.class);
     private final QueryRunner queryRunner;
 
@@ -28,7 +28,8 @@ public class PerfilUsuarioDAO extends BaseDAO<PerfilUsuario> {
         this.queryRunner = new QueryRunner();
     }
 
-    public void insertarPerfilUsuario(PerfilUsuario perfilUsuario) throws SQLException {
+    @Override
+    public void insertar(PerfilUsuario perfilUsuario) throws SQLException {
         String sql = "INSERT INTO Perfiles_Usuarios (perfil_id, usuario_id, foto_perfil, biografia) VALUES (?, ?, ?, ?)";
         Object[] params = {
                 perfilUsuario.getPerfilId(),
@@ -45,7 +46,8 @@ public class PerfilUsuarioDAO extends BaseDAO<PerfilUsuario> {
         }
     }
 
-    public void eliminarPerfilUsuario(int id) throws SQLException {
+    @Override
+    public void eliminar(int id) throws SQLException {
         String sql = "DELETE FROM Perfiles_Usuarios WHERE perfil_id = ?";
         try {
             int affectedRows = queryRunner.update(connection, sql, id);
@@ -58,7 +60,8 @@ public class PerfilUsuarioDAO extends BaseDAO<PerfilUsuario> {
         }
     }
 
-    public Optional<PerfilUsuario> obtenerPerfilUsuario(int id) throws SQLException {
+    @Override
+    public Optional<PerfilUsuario> obtenerPorId(int id) throws SQLException {
         String sql = "SELECT * FROM Perfiles_Usuarios WHERE perfil_id = ?";
         try {
             PerfilUsuario perfilUsuario = queryRunner.query(connection, sql, new BeanHandler<>(PerfilUsuario.class), id);
@@ -69,7 +72,8 @@ public class PerfilUsuarioDAO extends BaseDAO<PerfilUsuario> {
         }
     }
 
-    public List<PerfilUsuario> obtenerPerfilesUsuario() throws SQLException {
+    @Override
+    public List<PerfilUsuario> obtenerTodos() throws SQLException {
         String sql = "SELECT * FROM Perfiles_Usuarios";
         try {
             return queryRunner.query(connection, sql, new BeanListHandler<>(PerfilUsuario.class));
@@ -89,7 +93,8 @@ public class PerfilUsuarioDAO extends BaseDAO<PerfilUsuario> {
         }
     }
 
-    public void actualizarPerfilUsuario(PerfilUsuario perfilUsuario) throws SQLException {
+    @Override
+    public void actualizar(PerfilUsuario perfilUsuario) throws SQLException {
         String sql = "UPDATE Perfiles_Usuarios SET foto_perfil = ?, biografia = ? WHERE perfil_id = ?";
         Object[] params = {
                 perfilUsuario.getFotoPerfil(),
@@ -104,96 +109,6 @@ public class PerfilUsuarioDAO extends BaseDAO<PerfilUsuario> {
             }
         } catch (SQLException e) {
             logger.error("Error al actualizar perfil de usuario: {}", e.getMessage(), e);
-            throw e;
-        }
-    }
-
-    public void actualizarFotoPerfil(int perfilId, String fotoPerfil) throws SQLException {
-        String sql = "UPDATE Perfiles_Usuarios SET foto_perfil = ? WHERE perfil_id = ?";
-        Object[] params = { fotoPerfil, perfilId };
-
-        try {
-            int affectedRows = queryRunner.update(connection, sql, params);
-            if (affectedRows == 0) {
-                throw new SQLException("No se actualizó ninguna fila, el perfil de usuario con ID " + perfilId + " no existe.");
-            }
-        } catch (SQLException e) {
-            logger.error("Error al actualizar foto de perfil: {}", e.getMessage(), e);
-            throw e;
-        }
-    }
-
-    public void actualizarBiografia(int perfilId, String biografia) throws SQLException {
-        String sql = "UPDATE Perfiles_Usuarios SET biografia = ? WHERE perfil_id = ?";
-        Object[] params = { biografia, perfilId };
-
-        try {
-            int affectedRows = queryRunner.update(connection, sql, params);
-            if (affectedRows == 0) {
-                throw new SQLException("No se actualizó ninguna fila, el perfil de usuario con ID " + perfilId + " no existe.");
-            }
-        } catch (SQLException e) {
-            logger.error("Error al actualizar biografía: {}", e.getMessage(), e);
-            throw e;
-        }
-    }
-
-    public void actualizarFotoPerfilYBiografia(int perfilId, String fotoPerfil, String biografia) throws SQLException {
-        String sql = "UPDATE Perfiles_Usuarios SET foto_perfil = ?, biografia = ? WHERE perfil_id = ?";
-        Object[] params = { fotoPerfil, biografia, perfilId };
-
-        try {
-            int affectedRows = queryRunner.update(connection, sql, params);
-            if (affectedRows == 0) {
-                throw new SQLException("No se actualizó ninguna fila, el perfil de usuario con ID " + perfilId + " no existe.");
-            }
-        } catch (SQLException e) {
-            logger.error("Error al actualizar foto de perfil y biografía: {}", e.getMessage(), e);
-            throw e;
-        }
-    }
-
-    public void actualizarFotoPerfilPorUsuario(int usuarioId, String fotoPerfil) throws SQLException {
-        String sql = "UPDATE Perfiles_Usuarios SET foto_perfil = ? WHERE usuario_id = ?";
-        Object[] params = { fotoPerfil, usuarioId };
-
-        try {
-            int affectedRows = queryRunner.update(connection, sql, params);
-            if (affectedRows == 0) {
-                throw new SQLException("No se actualizó ninguna fila, el usuario con ID " + usuarioId + " no tiene un perfil de usuario asociado.");
-            }
-        } catch (SQLException e) {
-            logger.error("Error al actualizar foto de perfil por usuario: {}", e.getMessage(), e);
-            throw e;
-        }
-    }
-
-    public void actualizarBiografiaPorUsuario(int usuarioId, String biografia) throws SQLException {
-        String sql = "UPDATE Perfiles_Usuarios SET biografia = ? WHERE usuario_id = ?";
-        Object[] params = { biografia, usuarioId };
-
-        try {
-            int affectedRows = queryRunner.update(connection, sql, params);
-            if (affectedRows == 0) {
-                throw new SQLException("No se actualizó ninguna fila, el usuario con ID " + usuarioId + " no tiene un perfil de usuario asociado.");
-            }
-        } catch (SQLException e) {
-            logger.error("Error al actualizar biografía por usuario: {}", e.getMessage(), e);
-            throw e;
-        }
-    }
-
-    public void actualizarFotoPerfilYBiografiaPorUsuario(int usuarioId, String fotoPerfil, String biografia) throws SQLException {
-        String sql = "UPDATE Perfiles_Usuarios SET foto_perfil = ?, biografia = ? WHERE usuario_id = ?";
-        Object[] params = { fotoPerfil, biografia, usuarioId };
-
-        try {
-            int affectedRows = queryRunner.update(connection, sql, params);
-            if (affectedRows == 0) {
-                throw new SQLException("No se actualizó ninguna fila, el usuario con ID " + usuarioId + " no tiene un perfil de usuario asociado.");
-            }
-        } catch (SQLException e) {
-            logger.error("Error al actualizar foto de perfil y biografía por usuario: {}", e.getMessage(), e);
             throw e;
         }
     }

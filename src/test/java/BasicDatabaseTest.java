@@ -1,6 +1,3 @@
-package DAO;
-
-
 import com.models.util.DatabaseConnection;
 import org.junit.jupiter.api.Test;
 
