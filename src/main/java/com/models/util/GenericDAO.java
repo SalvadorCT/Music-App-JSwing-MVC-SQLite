@@ -1,4 +1,4 @@
-package com.models.dao;
+package com.models.util;
 
 import java.sql.SQLException;
 import java.util.List;

@@ -1,6 +1,5 @@
-package com.models.dao;
+package com.models.util;
 
-import com.models.util.DatabaseConnection;
 import org.apache.commons.dbutils.handlers.BeanHandler;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

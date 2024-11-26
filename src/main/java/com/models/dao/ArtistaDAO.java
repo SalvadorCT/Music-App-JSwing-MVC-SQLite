@@ -2,6 +2,8 @@ package com.models.dao;
 
 
 import com.models.Artista;
+import com.models.util.BaseDAO;
+import com.models.util.GenericDAO;
 import org.apache.commons.dbutils.QueryRunner;
 import org.apache.commons.dbutils.handlers.BeanListHandler;
 import org.apache.commons.dbutils.handlers.BeanHandler;
