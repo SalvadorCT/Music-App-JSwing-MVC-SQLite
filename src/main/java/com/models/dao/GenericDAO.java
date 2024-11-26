@@ -9,7 +9,7 @@ import java.util.Optional;
  *
  * @param <T> The type of entity managed by the repository.
  */
-public interface IRepository<T> {
+public interface GenericDAO<T> {
 
     /**
      * Inserts a new entity.

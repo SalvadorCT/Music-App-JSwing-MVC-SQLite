@@ -27,6 +27,16 @@ public class ListaReproduccionDAO extends BaseDAO<ListaReproduccion> {
         this.queryRunner = new QueryRunner();
     }
 
+    @Override
+    protected String getTableName() {
+        return "Lista_Reproduccion";
+    }
+
+    @Override
+    protected BeanHandler<ListaReproduccion> getHandler() {
+        return new BeanHandler<>(ListaReproduccion.class);
+    }
+
     public void insertarListaReproduccion(ListaReproduccion listaReproduccion) throws SQLException {
         String sql = "INSERT INTO Listas_Reproduccion (nombre, usuario_id, fecha_creacion, privacidad) VALUES (?, ?, ?, ?)";
         Object[] params = {

@@ -1,6 +1,7 @@
 package com.models.dao;
 
 import com.models.util.DatabaseConnection;
+import org.apache.commons.dbutils.handlers.BeanHandler;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -40,4 +41,7 @@ public abstract class BaseDAO<T> {
             }
         }
     }
+
+    protected abstract String getTableName();
+    protected abstract BeanHandler<T> getHandler();
 }

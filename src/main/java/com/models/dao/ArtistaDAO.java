@@ -14,7 +14,7 @@ import java.sql.SQLException;
 import java.util.List;
 import java.util.Optional;
 
-public class ArtistaDAO extends BaseDAO<Artista> implements IRepository<Artista> {
+public class ArtistaDAO extends BaseDAO<Artista> implements GenericDAO<Artista> {
     private static final Logger logger = LoggerFactory.getLogger(ArtistaDAO.class);
     private final QueryRunner queryRunner;
 
@@ -26,6 +26,16 @@ public class ArtistaDAO extends BaseDAO<Artista> implements IRepository<Artista>
     public ArtistaDAO() throws SQLException {
         super();
         this.queryRunner = new QueryRunner();
+    }
+
+    @Override
+    protected String getTableName() {
+        return "Artistas";
+    }
+
+    @Override
+    protected BeanHandler<Artista> getHandler() {
+        return new BeanHandler<>(Artista.class);
     }
 
 

@@ -13,7 +13,7 @@ import java.sql.SQLException;
 import java.util.List;
 import java.util.Optional;
 
-public class CancionDAO extends BaseDAO<Cancion> implements IRepository<Cancion> {
+public class CancionDAO extends BaseDAO<Cancion> implements GenericDAO<Cancion> {
 
     private static final Logger logger = LoggerFactory.getLogger(CancionDAO.class);
     private final QueryRunner queryRunner;
@@ -27,6 +27,17 @@ public class CancionDAO extends BaseDAO<Cancion> implements IRepository<Cancion>
         super();
         this.queryRunner = new QueryRunner();
     }
+
+    @Override
+    protected String getTableName() {
+        return "Canciones";
+    }
+
+    @Override
+    protected BeanHandler<Cancion> getHandler() {
+        return new BeanHandler<>(Cancion.class);
+    }
+
 
     @Override
     public void insertar(Cancion cancion) throws SQLException {

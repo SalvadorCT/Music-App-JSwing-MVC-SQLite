@@ -13,7 +13,7 @@ import java.sql.SQLException;
 import java.util.List;
 import java.util.Optional;
 
-public class UsuarioDAO extends BaseDAO<Usuario> implements IRepository<Usuario>{
+public class UsuarioDAO extends BaseDAO<Usuario> implements GenericDAO<Usuario> {
     private static final Logger logger = LoggerFactory.getLogger(UsuarioDAO.class);
     private final QueryRunner queryRunner;
 
@@ -25,6 +25,16 @@ public class UsuarioDAO extends BaseDAO<Usuario> implements IRepository<Usuario>
     public UsuarioDAO() throws SQLException {
         super();
         this.queryRunner = new QueryRunner();
+    }
+
+    @Override
+    protected String getTableName() {
+        return "Usuarios";
+    }
+
+    @Override
+    protected BeanHandler<Usuario> getHandler() {
+        return new BeanHandler<>(Usuario.class);
     }
 
     @Override

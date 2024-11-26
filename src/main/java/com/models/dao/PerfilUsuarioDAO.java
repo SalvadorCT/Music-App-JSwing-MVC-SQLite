@@ -14,7 +14,7 @@ import java.sql.SQLException;
 import java.util.List;
 import java.util.Optional;
 
-public class PerfilUsuarioDAO extends BaseDAO<PerfilUsuario> implements IRepository<PerfilUsuario>{
+public class PerfilUsuarioDAO extends BaseDAO<PerfilUsuario> implements GenericDAO<PerfilUsuario> {
     private static final Logger logger = LoggerFactory.getLogger(PerfilUsuarioDAO.class);
     private final QueryRunner queryRunner;
 
@@ -26,6 +26,16 @@ public class PerfilUsuarioDAO extends BaseDAO<PerfilUsuario> implements IReposit
     public PerfilUsuarioDAO() throws SQLException {
         super();
         this.queryRunner = new QueryRunner();
+    }
+
+    @Override
+    protected String getTableName() {
+        return "Perfil_Usuario";
+    }
+
+    @Override
+    protected BeanHandler<PerfilUsuario> getHandler() {
+        return new BeanHandler<>(PerfilUsuario.class);
     }
 
     @Override
