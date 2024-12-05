@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
-    <data-source source="LOCAL" name="musica" uuid="463a0333-6350-4ccf-9398-86c7560f593b">
+    <data-source source="LOCAL" name="musica" uuid="377e74cd-e83a-4a7e-adc1-84d3e90ad7b4">
       <driver-ref>sqlite.xerial</driver-ref>
       <synchronize>true</synchronize>
-      <configured-by-url>true</configured-by-url>
       <jdbc-driver>org.sqlite.JDBC</jdbc-driver>
-      <jdbc-url>jdbc:sqlite:D:\Proyectos\Java\Music-App-JSwing-MVC-SQLite\src\main\musica.db</jdbc-url>
+      <jdbc-url>jdbc:sqlite:C:\Users\salva\IdeaProjects\MusicApp\src\main\resources\musica.db</jdbc-url>
       <jdbc-additional-properties>
         <property name="com.intellij.clouds.kubernetes.db.enabled" value="false" />
       </jdbc-additional-properties>

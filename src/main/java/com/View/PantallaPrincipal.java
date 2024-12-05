@@ -11,10 +11,12 @@ public class PantallaPrincipal extends JFrame {
     private JButton btnPlaylists;
     private JButton btnConfiguracion;
 
+    private PanelReproductor panelReproductor;
+    private PanelDetallesCancion panelDetallesCancion;
+
     public PantallaPrincipal() {
-        // Configuración de la ventana
         setTitle("Spotify Clon");
-        setSize(800, 600);
+        setSize(1200, 800);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLayout(new BorderLayout());
 
@@ -46,6 +48,12 @@ public class PantallaPrincipal extends JFrame {
         panelPrincipal.setBackground(new Color(40, 40, 40));
         panelPrincipal.setLayout(new BorderLayout());
 
+        panelDetallesCancion = new PanelDetallesCancion();
+        add(panelDetallesCancion, BorderLayout.EAST);
+
+        panelReproductor = new PanelReproductor(panelDetallesCancion);
+
+        add(panelReproductor, BorderLayout.SOUTH);
         add(panelLateral, BorderLayout.WEST);
         add(panelPrincipal, BorderLayout.CENTER);
 
@@ -65,10 +73,10 @@ public class PantallaPrincipal extends JFrame {
     public JButton getBtnConfiguracion() {
         return btnConfiguracion;
     }
-
     public JPanel getPanelPrincipal() {
         return panelPrincipal;
     }
+
     public void cambiarPanel(JPanel nuevoPanel) {
         getPanelPrincipal().removeAll();
         getPanelPrincipal().add(nuevoPanel);
