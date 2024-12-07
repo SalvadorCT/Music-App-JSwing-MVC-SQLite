@@ -1,20 +1,33 @@
 package com.View;
 
+import lombok.Getter;
+
 import javax.swing.*;
 import java.awt.*;
+import java.sql.SQLException;
 
 public class PantallaPrincipal extends JFrame {
-    private JPanel panelLateral;
-    private JPanel panelPrincipal;
-    private JButton btnInicio;
-    private JButton btnBuscar;
-    private JButton btnPlaylists;
-    private JButton btnConfiguracion;
+    private final JPanel panelLateral;
+    @Getter
+    private final JPanel panelPrincipal;
+    @Getter
+    private final JButton btnInicio;
+    @Getter
+    private final JButton btnBuscar;
+    @Getter
+    private final JButton btnPlaylists;
+    @Getter
+    private final JButton btnConfiguracion;
 
-    private PanelReproductor panelReproductor;
-    private PanelDetallesCancion panelDetallesCancion;
+    private final PanelReproductor panelReproductor;
+    private final PanelDetallesCancion panelDetallesCancion;
 
-    public PantallaPrincipal() {
+    private void inicializar() throws SQLException {
+        // Establecer el panel inicial
+        cambiarPanel(new PanelCanciones());
+    }
+
+    public PantallaPrincipal() throws SQLException {
         setTitle("Spotify Clon");
         setSize(1200, 800);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -59,23 +72,25 @@ public class PantallaPrincipal extends JFrame {
 
         btnBuscar.addActionListener(e -> cambiarPanel(new PanelBusqueda()));
         btnPlaylists.addActionListener(e -> cambiarPanel(new PanelPlaylists()));
+
+        inicializar();
+
+        // Configurar ActionListener para el botón Inicio
+        getBtnInicio().addActionListener(e -> {
+            try {
+                cambiarPanel(new PanelCanciones());
+            } catch (SQLException ex) {
+                throw new RuntimeException(ex);
+            }
+        });
+
+        // Configurar ActionListener para el botón Buscar
+        getBtnBuscar().addActionListener(e -> cambiarPanel(new PanelBusqueda()));
+
+        // Configurar ActionListener para el botón Playlists
+        getBtnPlaylists().addActionListener(e -> cambiarPanel(new PanelPlaylists()));
     }
 
-    public JButton getBtnInicio() {
-        return btnInicio;
-    }
-    public JButton getBtnBuscar() {
-        return btnBuscar;
-    }
-    public JButton getBtnPlaylists() {
-        return btnPlaylists;
-    }
-    public JButton getBtnConfiguracion() {
-        return btnConfiguracion;
-    }
-    public JPanel getPanelPrincipal() {
-        return panelPrincipal;
-    }
 
     public void cambiarPanel(JPanel nuevoPanel) {
         getPanelPrincipal().removeAll();
@@ -86,7 +101,12 @@ public class PantallaPrincipal extends JFrame {
 
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
-            PantallaPrincipal pantalla = new PantallaPrincipal();
+            PantallaPrincipal pantalla = null;
+            try {
+                pantalla = new PantallaPrincipal();
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
             pantalla.setVisible(true);
         });
     }

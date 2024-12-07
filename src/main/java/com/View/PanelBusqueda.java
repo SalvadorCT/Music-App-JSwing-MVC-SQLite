@@ -1,10 +1,16 @@
 package com.View;
 
+import com.models.util.DatabaseConnection;
+import com.models.dao.CancionDAO;
+import lombok.Getter;
+
 import javax.swing.*;
 import java.awt.*;
+import java.sql.Connection;
+import java.sql.SQLException;
 
 class PlaceholderTextField extends JTextField {
-    private String placeholder;
+    private final String placeholder;
 
     public PlaceholderTextField(String placeholder, int columns) {
         super(columns);
@@ -26,10 +32,11 @@ class PlaceholderTextField extends JTextField {
 }
 
 public class PanelBusqueda extends JPanel {
-    private JTextField campoBusqueda;
-    private JButton botonBuscar;
-    private JTable tablaResultados;
-    private String textPlaceHolder = "¿Qué quieres reproducir?";
+    private final JTextField campoBusqueda;
+    @Getter
+    private final JButton botonBuscar;
+    private final JTable tablaResultados;
+    private final String textPlaceHolder = "¿Qué quieres reproducir?";
 
     public PanelBusqueda() {
         setLayout(new BorderLayout());
@@ -67,10 +74,31 @@ public class PanelBusqueda extends JPanel {
         tablaResultados.setForeground(Color.WHITE);
         tablaResultados.setFillsViewportHeight(true);
         add(new JScrollPane(tablaResultados), BorderLayout.CENTER);
+
+        botonBuscar.addActionListener(e -> {
+            String queryText = getTextoBusqueda();
+            // Realizar búsqueda en la base de datos
+            Connection conn = null;
+            try {
+                conn = DatabaseConnection.getConnection();
+            } catch (SQLException ex) {
+                throw new RuntimeException(ex);
+            }
+            CancionDAO dao = new CancionDAO(conn);
+            Object[][] resultados = null;
+            try {
+                resultados = dao.obtenerCancionesPorTexto(queryText);
+            } catch (SQLException ex) {
+                throw new RuntimeException(ex);
+            }
+            setResultados(resultados);
+        });
     }
+
     public String getTextoBusqueda() {
         return campoBusqueda.getText();
     }
+
     public void setResultados(Object[][] resultados) {
         String[] columnas = {"Título", "Artista", "Álbum", "Género"};
         tablaResultados.setModel(new javax.swing.table.DefaultTableModel(resultados, columnas));
@@ -78,7 +106,5 @@ public class PanelBusqueda extends JPanel {
     public int getCancionSeleccionada() {
         return tablaResultados.getSelectedRow();
     }
-    public JButton getBotonBuscar() {
-        return botonBuscar;
-    }
+
 }

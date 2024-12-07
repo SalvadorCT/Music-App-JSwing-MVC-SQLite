@@ -125,4 +125,33 @@ public class CancionDAO extends BaseDAO<Cancion> implements GenericDAO<Cancion> 
             throw e;
         }
     }
+
+    public Object[][] obtenerCancionesPorTexto(String texto) throws SQLException {
+        String sql = "SELECT cancion_id, titulo, duracion, album_id, url_archivo, conteo_reproducciones FROM Canciones WHERE titulo LIKE ?";
+        try {
+            // Assuming you have a member variable `queryRunner` similar to ArtistaDAO
+            QueryRunner queryRunner = new QueryRunner();
+            List<Cancion> canciones = queryRunner.query(connection, sql, new BeanListHandler<>(Cancion.class), "%" + texto + "%");
+
+            // Convert list of Cancion objects to Object[][] for your return requirement
+            Object[][] result = new Object[canciones.size()][];
+            for (int i = 0; i < canciones.size(); i++) {
+                Cancion cancion = canciones.get(i);
+                result[i] = new Object[] {
+                        cancion.getCancionId(),
+                        cancion.getTitulo(),
+                        cancion.getDuracion(),
+                        cancion.getAlbumId(),
+                        cancion.getUrlArchivo(),
+                        cancion.getConteoReproducciones()
+                };
+            }
+            return result;
+
+        } catch (SQLException e) {
+            // Log error with sufficient details
+            logger.error("Error obtaining songs by text: {}", e.getMessage(), e);
+            throw e;
+        }
+    }
 }

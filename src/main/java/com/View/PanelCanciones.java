@@ -2,13 +2,24 @@ package com.View;
 
 import javax.swing.*;
 import java.awt.*;
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.util.List;
+import java.util.Vector;
+
+import com.models.Cancion;
+import com.models.util.DatabaseConnection;
+import com.models.dao.CancionDAO;
+import lombok.Getter;
 
 public class PanelCanciones extends JPanel {
     private JTable tablaCanciones;
+    @Getter
     private JButton botonReproducir;
+    @Getter
     private JButton botonAgregarAPlaylist;
 
-    public PanelCanciones() {
+    public PanelCanciones() throws SQLException {
         setLayout(new BorderLayout());
         setBackground(new Color(40, 40, 40));
 
@@ -42,19 +53,36 @@ public class PanelCanciones extends JPanel {
         panelBotones.add(botonAgregarAPlaylist);
 
         add(panelBotones, BorderLayout.SOUTH);
+
+        Connection conn = DatabaseConnection.getConnection();
+        CancionDAO dao = new CancionDAO(conn);
+        List<Cancion> cancionesData = dao.obtenerTodos();
+        setCanciones(cancionesData);
     }
-    public void setCanciones(Object[][] canciones) {
+
+    public void setCanciones(List<Cancion> canciones) {
         String[] columnas = {"Título", "Artista", "Álbum", "Género"};
-        tablaCanciones.setModel(new javax.swing.table.DefaultTableModel(canciones, columnas));
+
+        // Create a data vector for the table model
+        Vector<Vector<Object>> dataVector = new Vector<>();
+
+        for (Cancion cancion : canciones) {
+            Vector<Object> row = new Vector<>();
+            row.add(cancion.getTitulo());
+            // Add additional fields from Cancion as needed or related entities
+            // row.add(cancion.getArtista());
+            // row.add(cancion.getAlbum());
+            // row.add(cancion.getGenero());
+
+            dataVector.add(row);
+        }
+
+        // Set the model with the data and column names
+        tablaCanciones.setModel(new javax.swing.table.DefaultTableModel(dataVector, new Vector<>(List.of(columnas))));
     }
     public int getCancionSeleccionada() {
         return tablaCanciones.getSelectedRow();
     }
-    public JButton getBotonReproducir() {
-        return botonReproducir;
-    }
-    public JButton getBotonAgregarAPlaylist() {
-        return botonAgregarAPlaylist;
-    }
+
 }
 

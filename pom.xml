@@ -53,6 +53,13 @@
             <scope>test</scope>
         </dependency>
 
+        <!-- https://mvnrepository.com/artifact/net.jthink/jaudiotagger -->
+        <dependency>
+            <groupId>net.jthink</groupId>
+            <artifactId>jaudiotagger</artifactId>
+            <version>3.0.1</version>
+        </dependency>
+
         <dependency>
             <groupId> org.apache.cassandra</groupId>
             <artifactId>cassandra-all</artifactId>
