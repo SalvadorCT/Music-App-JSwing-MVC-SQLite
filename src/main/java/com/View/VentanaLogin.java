@@ -1,12 +1,16 @@
 package com.View;
+import lombok.Getter;
+
 import javax.swing.*;
 import java.awt.*;
 
 public class VentanaLogin extends JFrame {
-    private JTextField campoCorreo;
-    private JPasswordField campoContrasena;
-    private JButton botonLogin;
-    private JButton botonRegistro;
+    private final JTextField campoCorreo;
+    private final JPasswordField campoContrasena;
+    @Getter
+    private final JButton botonLogin;
+    @Getter
+    private final JButton botonRegistro;
 
     public VentanaLogin() {
         setTitle("Inicio de Sesión");
@@ -74,12 +78,6 @@ public class VentanaLogin extends JFrame {
     }
     public String getContrasena() {
         return new String(campoContrasena.getPassword());
-    }
-    public JButton getBotonLogin() {
-        return botonLogin;
-    }
-    public JButton getBotonRegistro() {
-        return botonRegistro;
     }
 
     public static void main(String[] args) {

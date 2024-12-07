@@ -13,11 +13,11 @@ import com.models.dao.CancionDAO;
 import lombok.Getter;
 
 public class PanelCanciones extends JPanel {
-    private JTable tablaCanciones;
+    private final JTable tablaCanciones;
     @Getter
-    private JButton botonReproducir;
+    private final JButton botonReproducir;
     @Getter
-    private JButton botonAgregarAPlaylist;
+    private final JButton botonAgregarAPlaylist;
 
     public PanelCanciones() throws SQLException {
         setLayout(new BorderLayout());

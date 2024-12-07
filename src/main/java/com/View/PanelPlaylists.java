@@ -5,9 +5,9 @@ import java.awt.*;
 import java.util.List;
 
 public class PanelPlaylists extends JPanel {
-    private JList<String> listaPlaylists;
-    private JButton botonCrearPlaylist;
-    private JButton botonVerPlaylist;
+    private final JList<String> listaPlaylists;
+    private final JButton botonCrearPlaylist;
+    private final JButton botonVerPlaylist;
 
     public PanelPlaylists() {
         setLayout(new BorderLayout());

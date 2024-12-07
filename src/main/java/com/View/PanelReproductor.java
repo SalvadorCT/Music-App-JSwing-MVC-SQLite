@@ -1,15 +1,24 @@
 package com.View;
 
+import lombok.Getter;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class PanelReproductor extends JPanel {
-    private JLabel etiquetaCancionActual;
-    private JButton botonPlayPausa,botonSiguiente,botonAnterior;
+    @Getter
+    private final JLabel etiquetaCancionActual;
+    @Getter
+    private final JButton botonPlayPausa;
+    @Getter
+    private final JButton botonSiguiente;
+    @Getter
+    private final JButton botonAnterior;
     private boolean reproduciendo = false;
-    private JSlider sliderVolumen;
+    @Getter
+    private final JSlider sliderVolumen;
 
     private final PanelDetallesCancion panelDetallesCancion;
 
@@ -85,8 +94,5 @@ public class PanelReproductor extends JPanel {
     public void setDetallesCancion(String titulo, String artista, String album) {
         panelDetallesCancion.mostrarDetallesCancion(titulo, artista, album);
     }
-    public JSlider getSliderVolumen() {return sliderVolumen;}
-    public JButton getBotonPlayPausa() {return botonPlayPausa;}
-    public JButton getBotonSiguiente() {return botonSiguiente;}
-    public JButton getBotonAnterior() {return botonAnterior;}
+
 }

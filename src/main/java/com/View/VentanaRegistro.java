@@ -1,5 +1,7 @@
 package com.View;
 
+import lombok.Getter;
+
 import javax.swing.*;
 import java.awt.*;
 
@@ -8,7 +10,9 @@ public class VentanaRegistro extends JFrame {
     private final JTextField campoCorreo;
     private final JPasswordField campoContrasena;
     private final JPasswordField campoConfirmarContrasena;
+    @Getter
     private final JButton botonRegistrar;
+    @Getter
     private final JButton botonVolver;
 
     public VentanaRegistro() {
@@ -105,12 +109,6 @@ public class VentanaRegistro extends JFrame {
     }
     public String getConfirmarContrasena() {
         return new String(campoConfirmarContrasena.getPassword());
-    }
-    public JButton getBotonRegistrar() {
-        return botonRegistrar;
-    }
-    public JButton getBotonVolver() {
-        return botonVolver;
     }
 
     public static void main(String[] args) {

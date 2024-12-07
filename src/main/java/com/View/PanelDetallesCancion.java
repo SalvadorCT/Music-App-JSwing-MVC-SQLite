@@ -4,7 +4,9 @@ import javax.swing.*;
 import java.awt.*;
 
 public class PanelDetallesCancion extends JPanel {
-    private JLabel etiquetaTitulo, etiquetaArtista, etiquetaAlbum;
+    private final JLabel etiquetaTitulo;
+    private final JLabel etiquetaArtista;
+    private final JLabel etiquetaAlbum;
 
     public PanelDetallesCancion() {
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
