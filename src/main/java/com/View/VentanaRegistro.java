@@ -8,9 +8,13 @@ import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
 
 public class VentanaRegistro extends JFrame {
+    @Getter
     private final JTextField campoNombre;
+    @Getter
     private final JTextField campoCorreo;
+    @Getter
     private final JPasswordField campoContrasena;
+    @Getter
     private final JPasswordField campoConfirmarContrasena;
     @Getter
     private final JButton botonRegistrar;
