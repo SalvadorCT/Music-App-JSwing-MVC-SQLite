@@ -91,8 +91,7 @@ public class PanelReproductor extends JPanel {
     public void setCancionActual(String titulo) {
         etiquetaCancionActual.setText("Reproduciendo: " + titulo);
     }
-    public void setDetallesCancion(String titulo, String artista, String album) {
-        panelDetallesCancion.mostrarDetallesCancion(titulo, artista, album);
+    public void setDetallesCancion(String titulo, String artista, String album, String rutaPortada) {
+        panelDetallesCancion.mostrarDetallesCancion(titulo, artista, album, rutaPortada);
     }
-
 }

@@ -1,10 +1,12 @@
 package com.View;
 
+import com.controller.ConfiguracionesController;
+import com.models.dao.UsuarioDAO;
 import lombok.Getter;
-
 import javax.swing.*;
 import java.awt.*;
 import java.sql.SQLException;
+import com.models.dao.UsuarioDAO;
 
 public class PantallaPrincipal extends JFrame {
     private final JPanel panelLateral;
@@ -34,6 +36,7 @@ public class PantallaPrincipal extends JFrame {
         setSize(1200, 800);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLayout(new BorderLayout());
+        setIconImage(new ImageIcon("src/main/java/com/View/icons/JPotify.png").getImage());
 
         // barra de navegación
         panelLateral = new JPanel();
@@ -51,7 +54,6 @@ public class PantallaPrincipal extends JFrame {
         for (JButton boton : botones) {
             boton.setBackground(new Color(30, 30, 30));
             boton.setForeground(Color.WHITE);
-            setIconImage(new ImageIcon("src/main/java/com/View/icons/JPotify.png").getImage());
             boton.setFocusPainted(false);
             boton.setBorderPainted(false);
             boton.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -101,14 +103,26 @@ public class PantallaPrincipal extends JFrame {
             seleccionarBoton(btnPlaylists, "src/main/java/com/View/icons/playlist_focused.png");
         });
 
-        // ActionListener para el botón Configuración
-        /*
         getBtnConfiguracion().addActionListener(e -> {
-            cambiarPanel(new PanelConfiguracion());
-            seleccionarBoton(btnConfiguracion, "src/main/java/com/View/icons/settings_focused.png");
-        });*/
+            PanelConfiguraciones panelConfiguraciones = new PanelConfiguraciones();
+            try {
+                int usuarioId = obtenerIdUsuarioActual();
+                UsuarioDAO usuarioDAO;
+                usuarioDAO = new UsuarioDAO();
+                ConfiguracionesController controlador = new ConfiguracionesController(panelConfiguraciones, usuarioDAO, usuarioId);
+                cambiarPanel(panelConfiguraciones);
+                seleccionarBoton(btnConfiguracion, "src/main/java/com/View/icons/settings_focused.png");
+            } catch (Exception ex) {
+                JOptionPane.showMessageDialog(this, "Error al cargar configuraciones: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        });
+
     }
 
+    private int obtenerIdUsuarioActual() {
+        // Simular usuario actual con ID fijo para prueba
+        return 1;
+    }
 
     public void cambiarPanel(JPanel nuevoPanel) {
         getPanelPrincipal().removeAll();
