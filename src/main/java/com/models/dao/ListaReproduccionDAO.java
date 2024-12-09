@@ -59,14 +59,14 @@ public class ListaReproduccionDAO extends BaseDAO<ListaReproduccion> {
         String sql = "INSERT INTO Listas_Reproduccion (nombre, usuario_id, fecha_creacion, privacidad) VALUES (?, ?, ?, ?)";
         Object[] params = {
                 listaReproduccion.getNombre(),
-                listaReproduccion.getUsuarioId(),
-                listaReproduccion.getFechaCreacion(),
+                listaReproduccion.getUsuario_Id(),
+                listaReproduccion.getFecha_Creacion(),
                 listaReproduccion.getPrivacidad(),
         };
 
         try {
             int generatedId = queryRunner.insert(connection, sql, new ScalarHandler<Integer>(), params);
-            listaReproduccion.setListaId(generatedId);
+            listaReproduccion.setLista_Id(generatedId);
         } catch (SQLException e) {
             logger.error("Error al insertar lista de reproducción: {}", e.getMessage(), e);
             throw e;
@@ -90,16 +90,16 @@ public class ListaReproduccionDAO extends BaseDAO<ListaReproduccion> {
         String sql = "UPDATE Listas_Reproduccion SET nombre = ?, usuario_id = ?, fecha_creacion = ?, privacidad = ? WHERE lista_id = ?";
         Object[] params = {
                 listaReproduccion.getNombre(),
-                listaReproduccion.getUsuarioId(),
-                listaReproduccion.getFechaCreacion(),
+                listaReproduccion.getUsuario_Id(),
+                listaReproduccion.getFecha_Creacion(),
                 listaReproduccion.getPrivacidad(),
-                listaReproduccion.getListaId()
+                listaReproduccion.getLista_Id()
         };
 
         try {
             int affectedRows = queryRunner.update(connection, sql, params);
             if (affectedRows == 0) {
-                throw new SQLException("No se actualizó ninguna fila, la lista de reproducción con ID " + listaReproduccion.getListaId() + " no existe.");
+                throw new SQLException("No se actualizó ninguna fila, la lista de reproducción con ID " + listaReproduccion.getLista_Id() + " no existe.");
             }
         } catch (SQLException e) {
             logger.error("Error al actualizar lista de reproducción: {}", e.getMessage(), e);

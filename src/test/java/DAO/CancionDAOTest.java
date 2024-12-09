@@ -41,9 +41,9 @@ class CancionDAOTest {
         Cancion cancion = new Cancion();
         cancion.setTitulo("Prueba Cancion");
         cancion.setDuracion(210);
-        cancion.setAlbumId(1);
+        cancion.setAlbum_Id(1);
         cancion.setUrlArchivo("http://archivo.com/cancion.mp3");
-        cancion.setConteoReproducciones(100);
+        cancion.setConteo_Reproducciones(100);
 
         cancionDAO.insertar(cancion);
 
@@ -59,9 +59,9 @@ class CancionDAOTest {
         Cancion cancion = new Cancion();
         cancion.setTitulo("Otra Cancion");
         cancion.setDuracion(300);
-        cancion.setAlbumId(2);
+        cancion.setAlbum_Id(2);
         cancion.setUrlArchivo("http://archivo.com/otra_cancion.mp3");
-        cancion.setConteoReproducciones(50);
+        cancion.setConteo_Reproducciones(50);
 
         cancionDAO.insertar(cancion);
 
@@ -76,9 +76,9 @@ class CancionDAOTest {
         Cancion cancion = new Cancion();
         cancion.setTitulo(null);
         cancion.setDuracion(0);
-        cancion.setAlbumId(0);
+        cancion.setAlbum_Id(0);
         cancion.setUrlArchivo(null);
-        cancion.setConteoReproducciones(0);
+        cancion.setConteo_Reproducciones(0);
 
         assertThrows(SQLException.class, () -> cancionDAO.insertar(cancion));
     }
@@ -88,12 +88,12 @@ class CancionDAOTest {
         Cancion cancion = new Cancion();
         cancion.setTitulo("Cancion Existente");
         cancion.setDuracion(180);
-        cancion.setAlbumId(1);
+        cancion.setAlbum_Id(1);
         cancion.setUrlArchivo("http://archivo.com/existente.mp3");
-        cancion.setConteoReproducciones(200);
+        cancion.setConteo_Reproducciones(200);
 
         cancionDAO.insertar(cancion);
-        Optional<Cancion> cancionObtenida = cancionDAO.obtenerPorId(cancion.getCancionId());
+        Optional<Cancion> cancionObtenida = cancionDAO.obtenerPorId(cancion.getCancion_Id());
 
         assertNotNull(cancionObtenida);
         assertEquals("Cancion Existente", cancionObtenida.get().getTitulo());
@@ -109,12 +109,12 @@ class CancionDAOTest {
     @Test
     void actualizarCancionInexistente() {
         Cancion cancion = new Cancion();
-        cancion.setCancionId(-1);
+        cancion.setCancion_Id(-1);
         cancion.setTitulo("Cancion Inexistente");
         cancion.setDuracion(0);
-        cancion.setAlbumId(0);
+        cancion.setAlbum_Id(0);
         cancion.setUrlArchivo("http://archivo.com/inexistente.mp3");
-        cancion.setConteoReproducciones(0);
+        cancion.setConteo_Reproducciones(0);
 
         assertThrows(SQLException.class, () -> cancionDAO.actualizar(cancion));
     }
@@ -124,12 +124,12 @@ class CancionDAOTest {
         Cancion cancion = new Cancion();
         cancion.setTitulo("Cancion a Eliminar");
         cancion.setDuracion(180);
-        cancion.setAlbumId(1);
+        cancion.setAlbum_Id(1);
         cancion.setUrlArchivo("http://archivo.com/eliminar.mp3");
-        cancion.setConteoReproducciones(200);
+        cancion.setConteo_Reproducciones(200);
 
         cancionDAO.insertar(cancion);
-        cancionDAO.eliminar(cancion.getCancionId());
+        cancionDAO.eliminar(cancion.getCancion_Id());
 
         var canciones = cancionDAO.obtenerTodos();
         assertFalse(canciones.stream().anyMatch(c -> c.getTitulo().equals("Cancion a Eliminar")));

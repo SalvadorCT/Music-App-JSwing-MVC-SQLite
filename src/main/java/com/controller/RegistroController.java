@@ -52,9 +52,9 @@ public class RegistroController {
             Usuario nuevoUsuario = new Usuario();
             nuevoUsuario.setNombre(nombre);
             nuevoUsuario.setEmail(correo);
-            nuevoUsuario.setContrasenaHash(contrasena); // Aquí deberías usar un hash seguro
-            nuevoUsuario.setFechaCreacion(System.currentTimeMillis());
-            nuevoUsuario.setTipoSuscripcion("Gratis"); // Por defecto, tipo de suscripción gratis
+            nuevoUsuario.setContrasena_Hash(contrasena); // Aquí deberías usar un hash seguro
+            nuevoUsuario.setFecha_Creacion(System.currentTimeMillis());
+            nuevoUsuario.setTipo_Suscripcion("Gratis"); // Por defecto, tipo de suscripción gratis
 
             try {
                 usuarioDAO.insertar(nuevoUsuario);

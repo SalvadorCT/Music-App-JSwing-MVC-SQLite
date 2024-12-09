@@ -3,8 +3,8 @@ import lombok.Data;
 
 
 public @Data class Artista {
-    private int artistaId;
+    private int artista_Id;
     private String nombre;
     private String genero;
-    private String paisOrigen;
+    private String pais_Origen;
 }

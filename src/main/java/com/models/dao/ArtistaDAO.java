@@ -61,12 +61,12 @@ public class ArtistaDAO extends BaseDAO<Artista> implements GenericDAO<Artista> 
         Object[] params = {
                 entity.getNombre(),
                 entity.getGenero(),
-                entity.getPaisOrigen()
+                entity.getPais_Origen()
         };
 
         try {
             int generatedId = queryRunner.insert(connection, sql, new ScalarHandler<Integer>(), params);
-            entity.setArtistaId(generatedId);
+            entity.setArtista_Id(generatedId);
         } catch (SQLException e) {
             logger.error("Error al insertar artista: {}", e.getMessage(), e);
             throw e;
@@ -93,14 +93,14 @@ public class ArtistaDAO extends BaseDAO<Artista> implements GenericDAO<Artista> 
         Object[] params = {
                 entity.getNombre(),
                 entity.getGenero(),
-                entity.getPaisOrigen(),
-                entity.getArtistaId()
+                entity.getPais_Origen(),
+                entity.getArtista_Id()
         };
 
         try {
             int affectedRows = queryRunner.update(connection, sql, params);
             if (affectedRows == 0) {
-                throw new SQLException("No se actualizó ninguna fila, el artista con ID " + entity.getArtistaId() + " no existe.");
+                throw new SQLException("No se actualizó ninguna fila, el artista con ID " + entity.getArtista_Id() + " no existe.");
             }
         } catch (SQLException e) {
             logger.error("Error al actualizar artista: {}", e.getMessage(), e);

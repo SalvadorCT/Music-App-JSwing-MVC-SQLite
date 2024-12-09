@@ -42,7 +42,7 @@ class ArtistaDAOTest {
         Artista artista = new Artista();
         artista.setNombre("Artista Prueba");
         artista.setGenero("Rock");
-        artista.setPaisOrigen("USA");
+        artista.setPais_Origen("USA");
 
         artistaDAO.insertar(artista);
 
@@ -57,7 +57,7 @@ class ArtistaDAOTest {
         Artista artista = new Artista();
         artista.setNombre("Artista Eliminar");
         artista.setGenero("Pop");
-        artista.setPaisOrigen("UK");
+        artista.setPais_Origen("UK");
 
         artistaDAO.insertar(artista);
 
@@ -77,7 +77,7 @@ class ArtistaDAOTest {
         Artista artista = new Artista();
         artista.setNombre("Artista Existente");
         artista.setGenero("Jazz");
-        artista.setPaisOrigen("France");
+        artista.setPais_Origen("France");
 
         artistaDAO.insertar(artista);
 
@@ -97,7 +97,7 @@ class ArtistaDAOTest {
         Artista artista = new Artista();
         artista.setNombre("Artista Actualizar");
         artista.setGenero("Blues");
-        artista.setPaisOrigen("Canada");
+        artista.setPais_Origen("Canada");
 
         artistaDAO.insertar(artista);
 
@@ -115,7 +115,7 @@ class ArtistaDAOTest {
         artista.setArtistaId(-1);
         artista.setNombre("Artista Inexistente");
         artista.setGenero("Classical");
-        artista.setPaisOrigen("Germany");
+        artista.setPais_Origen("Germany");
 
         assertThrows(SQLException.class, () -> artistaDAO.actualizar(artista));
     }

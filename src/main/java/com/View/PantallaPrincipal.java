@@ -1,12 +1,12 @@
 package com.View;
 
 import com.controller.ConfiguracionesController;
+import com.controller.ReproductorController;
 import com.models.dao.UsuarioDAO;
 import lombok.Getter;
 import javax.swing.*;
 import java.awt.*;
 import java.sql.SQLException;
-import com.models.dao.UsuarioDAO;
 
 public class PantallaPrincipal extends JFrame {
     private final JPanel panelLateral;
@@ -70,6 +70,7 @@ public class PantallaPrincipal extends JFrame {
         add(panelDetallesCancion, BorderLayout.EAST);
 
         panelReproductor = new PanelReproductor(panelDetallesCancion);
+        ReproductorController reproductorController = new ReproductorController(panelReproductor);
 
         add(panelReproductor, BorderLayout.SOUTH);
         add(panelLateral, BorderLayout.WEST);
@@ -119,6 +120,8 @@ public class PantallaPrincipal extends JFrame {
 
     }
 
+
+
     private int obtenerIdUsuarioActual() {
         // Simular usuario actual con ID fijo para prueba
         return 1;
@@ -160,6 +163,9 @@ public class PantallaPrincipal extends JFrame {
         // Establecer icono del botón seleccionado
         boton.setIcon(new ImageIcon(new ImageIcon(rutaIcono).getImage().getScaledInstance(20, 20, Image.SCALE_SMOOTH)));
     }
+
+
+
 
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {

@@ -1,12 +1,16 @@
 package com.View;
 
+import lombok.Getter;
+
 import javax.swing.*;
 import java.awt.*;
 import java.util.List;
 
 public class PanelPlaylists extends JPanel {
     private final JList<String> listaPlaylists;
+    @Getter
     private final JButton botonCrearPlaylist;
+    @Getter
     private final JButton botonVerPlaylist;
 
     public PanelPlaylists() {
@@ -48,11 +52,6 @@ public class PanelPlaylists extends JPanel {
     public String getPlaylistSeleccionada() {
         return listaPlaylists.getSelectedValue();
     }
-    public JButton getBotonCrearPlaylist() {
-        return botonCrearPlaylist;
-    }
-    public JButton getBotonVerPlaylist() {
-        return botonVerPlaylist;
-    }
+
 }
 

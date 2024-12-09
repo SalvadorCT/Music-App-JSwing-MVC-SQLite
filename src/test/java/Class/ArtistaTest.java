@@ -13,12 +13,12 @@ class ArtistaTest {
         artista.setArtistaId(1);
         artista.setNombre("Juan Pérez");
         artista.setGenero("Pop");
-        artista.setPaisOrigen("Argentina");
+        artista.setPais_Origen("Argentina");
 
         assertEquals(1, artista.getArtistaId());
         assertEquals("Juan Pérez", artista.getNombre());
         assertEquals("Pop", artista.getGenero());
-        assertEquals("Argentina", artista.getPaisOrigen());
+        assertEquals("Argentina", artista.getPais_Origen());
     }
 
     @Test
@@ -26,10 +26,10 @@ class ArtistaTest {
         Artista artista = new Artista();
         artista.setNombre(null);
         artista.setGenero(null);
-        artista.setPaisOrigen(null);
+        artista.setPais_Origen(null);
 
         assertNull(artista.getNombre());
         assertNull(artista.getGenero());
-        assertNull(artista.getPaisOrigen());
+        assertNull(artista.getPais_Origen());
     }
 }

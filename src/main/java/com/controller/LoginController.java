@@ -6,7 +6,6 @@ import com.View.PantallaPrincipal;
 import com.models.Usuario;
 import com.models.dao.UsuarioDAO;
 
-import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
@@ -39,7 +38,7 @@ public class LoginController {
             try {
                 Optional<Usuario> usuarioOptional = usuarioDAO.obtenerPorEmail(correo).stream()
                         .filter(usuario -> correo.equals(usuario.getEmail()) &&
-                                (usuario.getContrasenaHash() != null && usuario.getContrasenaHash().equals(contrasena)))
+                                (usuario.getContrasena_Hash() != null && usuario.getContrasena_Hash().equals(contrasena)))
                         .findFirst();
 
                 if (usuarioOptional.isPresent()) {

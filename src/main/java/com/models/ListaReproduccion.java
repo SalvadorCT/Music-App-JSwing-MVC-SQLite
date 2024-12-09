@@ -3,9 +3,9 @@ package com.models;
 import lombok.Data;
 
 public @Data class ListaReproduccion {
-    private int listaId;
+    private int lista_Id;
     private String nombre;
-    private int usuarioId;
-    private Long fechaCreacion;
+    private int usuario_Id;
+    private Long fecha_Creacion;
     private String privacidad;
 }

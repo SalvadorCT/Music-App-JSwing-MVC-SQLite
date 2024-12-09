@@ -46,6 +46,9 @@ public class CancionDAO extends BaseDAO<Cancion> implements GenericDAO<Cancion> 
         columnToPropertyOverrides.put("album_id", "albumId");
         columnToPropertyOverrides.put("url_archivo", "urlArchivo");
         columnToPropertyOverrides.put("conteo_reproducciones", "conteoReproducciones");
+        columnToPropertyOverrides.put("titulo", "titulo");
+        columnToPropertyOverrides.put("duracion", "duracion");
+
     }
 
     private static final BeanProcessor beanProcessor = new BeanProcessor(columnToPropertyOverrides);
@@ -63,15 +66,15 @@ public class CancionDAO extends BaseDAO<Cancion> implements GenericDAO<Cancion> 
         Object[] params = {
                 cancion.getTitulo(),
                 cancion.getDuracion(),
-                cancion.getAlbumId(),
-                cancion.getUrlArchivo(),
-                cancion.getConteoReproducciones()
+                cancion.getAlbum_Id(),
+                cancion.getUrl_archivo(),
+                cancion.getConteo_Reproducciones()
         };
 
         try {
             // Ejecuta la inserción y obtiene el ID generado
             int generatedId = queryRunner.insert(connection, sql, new ScalarHandler<Integer>(), params);
-            cancion.setCancionId(generatedId);
+            cancion.setCancion_Id(generatedId);
         } catch (SQLException e) {
             logger.error("Error al insertar canción: {}", e.getMessage(), e);
             throw e;
@@ -99,17 +102,17 @@ public class CancionDAO extends BaseDAO<Cancion> implements GenericDAO<Cancion> 
         Object[] params = {
                 cancion.getTitulo(),
                 cancion.getDuracion(),
-                cancion.getAlbumId(),
-                cancion.getUrlArchivo(),
-                cancion.getConteoReproducciones(),
-                cancion.getCancionId()
+                cancion.getAlbum_Id(),
+                cancion.getUrl_archivo(),
+                cancion.getConteo_Reproducciones(),
+                cancion.getCancion_Id()
         };
 
         try {
             // Ejecuta la actualización y verifica si se afectaron filas
             int affectedRows = queryRunner.update(connection, sql, params);
             if (affectedRows == 0) {
-                throw new SQLException("No se actualizó ninguna fila, la canción con ID " + cancion.getCancionId() + " no existe.");
+                throw new SQLException("No se actualizó ninguna fila, la canción con ID " + cancion.getCancion_Id() + " no existe.");
             }
         } catch (SQLException e) {
             logger.error("Error al actualizar canción: {}", e.getMessage(), e);
@@ -154,12 +157,12 @@ public class CancionDAO extends BaseDAO<Cancion> implements GenericDAO<Cancion> 
             for (int i = 0; i < canciones.size(); i++) {
                 Cancion cancion = canciones.get(i);
                 result[i] = new Object[] {
-                        cancion.getCancionId(),
+                        cancion.getCancion_Id(),
                         cancion.getTitulo(),
                         cancion.getDuracion(),
-                        cancion.getAlbumId(),
-                        cancion.getUrlArchivo(),
-                        cancion.getConteoReproducciones()
+                        cancion.getAlbum_Id(),
+                        cancion.getUrl_archivo(),
+                        cancion.getConteo_Reproducciones()
                 };
             }
             return result;

@@ -10,14 +10,14 @@ class PerfilUsuarioTest {
     @Test
     void testCrearPerfilUsuario() {
         PerfilUsuario perfil = new PerfilUsuario();
-        perfil.setPerfilId(10);
-        perfil.setUsuarioId(5);
-        perfil.setFotoPerfil("http://example.com/profile.jpg");
+        perfil.setPerfil_Id(10);
+        perfil.setUsuario_Id(5);
+        perfil.setFoto_Perfil("http://example.com/profile.jpg");
         perfil.setBiografia("Este es mi perfil.");
 
-        assertEquals(10, perfil.getPerfilId());
-        assertEquals(5, perfil.getUsuarioId());
-        assertEquals("http://example.com/profile.jpg", perfil.getFotoPerfil());
+        assertEquals(10, perfil.getPerfil_Id());
+        assertEquals(5, perfil.getUsuario_Id());
+        assertEquals("http://example.com/profile.jpg", perfil.getFoto_Perfil());
         assertEquals("Este es mi perfil.", perfil.getBiografia());
     }
 }

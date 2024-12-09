@@ -86,9 +86,9 @@ public class UsuarioDAO extends BaseDAO<Usuario> implements GenericDAO<Usuario> 
         Object[] params = {
                 usuario.getNombre(),
                 usuario.getEmail(),
-                usuario.getTipoSuscripcion(),
-                usuario.getFechaCreacion(),
-                usuario.getContrasenaHash()
+                usuario.getTipo_Suscripcion(),
+                usuario.getFecha_Creacion(),
+                usuario.getContrasena_Hash()
         };
 
         try {
@@ -120,9 +120,9 @@ public class UsuarioDAO extends BaseDAO<Usuario> implements GenericDAO<Usuario> 
         Object[] params = {
                 usuario.getNombre(),
                 usuario.getEmail(),
-                usuario.getTipoSuscripcion(),
-                usuario.getFechaCreacion(),
-                usuario.getContrasenaHash(),
+                usuario.getTipo_Suscripcion(),
+                usuario.getFecha_Creacion(),
+                usuario.getContrasena_Hash(),
                 usuario.getUsuarioId()
         };
 
@@ -165,7 +165,7 @@ public class UsuarioDAO extends BaseDAO<Usuario> implements GenericDAO<Usuario> 
         try {
             Usuario usuario = queryRunner.query(connection, sql, getHandler(), email);
             System.out.println("Fetched usuario: " + usuario);
-            System.out.println("Password hash: " + usuario.getContrasenaHash());
+            System.out.println("Password hash: " + usuario.getContrasena_Hash());
             return Optional.of(usuario);
         } catch (SQLException e) {
             logger.error("Error al obtener usuario por email: {}", e.getMessage(), e);

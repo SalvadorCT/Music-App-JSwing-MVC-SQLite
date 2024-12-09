@@ -61,14 +61,14 @@ public class PerfilUsuarioDAO extends BaseDAO<PerfilUsuario> implements GenericD
     public void insertar(PerfilUsuario perfilUsuario) throws SQLException {
         String sql = "INSERT INTO Perfiles_Usuarios (perfil_id, usuario_id, foto_perfil, biografia) VALUES (?, ?, ?, ?)";
         Object[] params = {
-                perfilUsuario.getPerfilId(),
-                perfilUsuario.getUsuarioId(),
-                perfilUsuario.getFotoPerfil(),
+                perfilUsuario.getPerfil_Id(),
+                perfilUsuario.getUsuario_Id(),
+                perfilUsuario.getFoto_Perfil(),
         };
 
         try {
             int generatedId = queryRunner.insert(connection, sql, new ScalarHandler<Integer>(), params);
-            perfilUsuario.setPerfilId(generatedId);
+            perfilUsuario.setPerfil_Id(generatedId);
         } catch (SQLException e) {
             logger.error("Error al insertar perfil de usuario: {}", e.getMessage(), e);
             throw e;
@@ -126,15 +126,15 @@ public class PerfilUsuarioDAO extends BaseDAO<PerfilUsuario> implements GenericD
     public void actualizar(PerfilUsuario perfilUsuario) throws SQLException {
         String sql = "UPDATE Perfiles_Usuarios SET foto_perfil = ?, biografia = ? WHERE perfil_id = ?";
         Object[] params = {
-                perfilUsuario.getFotoPerfil(),
+                perfilUsuario.getFoto_Perfil(),
                 perfilUsuario.getBiografia(),
-                perfilUsuario.getPerfilId()
+                perfilUsuario.getPerfil_Id()
         };
 
         try {
             int affectedRows = queryRunner.update(connection, sql, params);
             if (affectedRows == 0) {
-                throw new SQLException("No se actualizó ninguna fila, el perfil de usuario con ID " + perfilUsuario.getPerfilId() + " no existe.");
+                throw new SQLException("No se actualizó ninguna fila, el perfil de usuario con ID " + perfilUsuario.getPerfil_Id() + " no existe.");
             }
         } catch (SQLException e) {
             logger.error("Error al actualizar perfil de usuario: {}", e.getMessage(), e);
