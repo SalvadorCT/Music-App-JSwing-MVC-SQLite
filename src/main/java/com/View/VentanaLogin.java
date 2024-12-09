@@ -90,17 +90,26 @@ public class VentanaLogin extends JFrame {
         return new JLabel(new ImageIcon(image));
     }
 
+    /**
+     * Establece el estilo de un campo de texto.
+     * @param campo Campo de texto al que se le establecerá el estilo.
+     */
     private void configurarEstiloCampo(JTextField campo) {
         campo.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
         //campo.setBorder(BorderFactory.createCompoundBorder(
         //        campo.getBorder(),
-        //        BorderFactory.createEmptyBorder(0,10,0,0)
+        //        BorderFactory.createEmptyBorder(0,10,0,0) // top, left, bottom, right
         //));
         campo.setBackground(new Color(25, 25, 25));
         campo.setForeground(Color.WHITE);
         campo.setCaretColor(Color.WHITE);
     }
-
+    /**
+     * Establece el estilo de un botón.
+     * @param boton Botón al que se le establecerá el estilo.
+     * @param texto Texto que mostrará el botón.
+     * @param colorFondo Color de fondo del botón.
+     */
     private void configurarEstiloBoton(JButton boton, String texto, Color colorFondo) {
         boton.setText(texto);
         boton.setBackground(colorFondo);
@@ -120,11 +129,20 @@ public class VentanaLogin extends JFrame {
     public void mostrarMensaje(String mensaje) {
         JOptionPane.showMessageDialog(this, mensaje, "Mensaje", JOptionPane.INFORMATION_MESSAGE);
     }
-
+    /**
+     * Establece el borde de un campo de texto.
+     * @param field Campo de texto al que se le establecerá el borde.
+     * @param isValid Indica si el campo es válido o no.
+     */
     public void setFieldBorder(JTextField field, boolean isValid) {
         field.setBorder(BorderFactory.createLineBorder(isValid ? Color.GREEN : Color.RED));
     }
 
+    /**
+     * Agrega una validación a un campo de texto.
+     * @param field Campo de texto a validar.
+     * @param validationLogic Lógica de validación a ejecutar.
+     */
     private void addFieldValidation(JTextField field, Runnable validationLogic) {
         field.addFocusListener(new FocusAdapter() {
             @Override

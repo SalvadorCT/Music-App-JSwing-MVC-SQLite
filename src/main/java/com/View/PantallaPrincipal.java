@@ -25,6 +25,8 @@ public class PantallaPrincipal extends JFrame {
     private void inicializar() throws SQLException {
         // Establecer el panel inicial
         cambiarPanel(new PanelCanciones());
+        // Seleccionar el botón Inicio
+        seleccionarBoton(btnInicio, "src/main/java/com/View/icons/home_focused.png");
     }
 
     public PantallaPrincipal() throws SQLException {
@@ -39,10 +41,10 @@ public class PantallaPrincipal extends JFrame {
         panelLateral.setBackground(new Color(25, 25, 25));
         panelLateral.setPreferredSize(new Dimension(200, getHeight()));
 
-        btnInicio = new JButton("Inicio");
-        btnBuscar = new JButton("Buscar");
-        btnPlaylists = new JButton("Playlists");
-        btnConfiguracion = new JButton("Configuración");
+        btnInicio = crearBotonConIcono("Inicio", "src/main/java/com/View/icons/home.png");
+        btnBuscar = crearBotonConIcono("Buscar", "src/main/java/com/View/icons/search.png");
+        btnPlaylists =crearBotonConIcono("Playlists", "src/main/java/com/View/icons/playlist.png");
+        btnConfiguracion = crearBotonConIcono("Configuración", "src/main/java/com/View/icons/settings.png");
 
         // Estilo de los botones
         JButton[] botones = {btnInicio, btnBuscar, btnPlaylists, btnConfiguracion};
@@ -70,26 +72,41 @@ public class PantallaPrincipal extends JFrame {
         add(panelReproductor, BorderLayout.SOUTH);
         add(panelLateral, BorderLayout.WEST);
         add(panelPrincipal, BorderLayout.CENTER);
-
-        btnBuscar.addActionListener(e -> cambiarPanel(new PanelBusqueda()));
+        /*
+        btnBuscar.addActionListener(e -> {
+            cambiarPanel(new PanelBusqueda());
+            seleccionarBoton(btnBuscar, "src/main/java/com/View/icons/home_focused.png");
+        });
         btnPlaylists.addActionListener(e -> cambiarPanel(new PanelPlaylists()));
-
+        */
         inicializar();
 
-        // Configurar ActionListener para el botón Inicio
+        // ActionListener para el botón Inicio
         getBtnInicio().addActionListener(e -> {
             try {
                 cambiarPanel(new PanelCanciones());
+                seleccionarBoton(btnInicio, "src/main/java/com/View/icons/home_focused.png");
             } catch (SQLException ex) {
                 throw new RuntimeException(ex);
             }
         });
+        // ActionListener para el botón Buscar
+        getBtnBuscar().addActionListener(e -> {
+            cambiarPanel(new PanelBusqueda());
+            seleccionarBoton(btnBuscar, "src/main/java/com/View/icons/search_focused.png");
+        });
+        // ActionListener para el botón Playlists
+        getBtnPlaylists().addActionListener(e -> {
+            cambiarPanel(new PanelPlaylists());
+            seleccionarBoton(btnPlaylists, "src/main/java/com/View/icons/playlist_focused.png");
+        });
 
-        // Configurar ActionListener para el botón Buscar
-        getBtnBuscar().addActionListener(e -> cambiarPanel(new PanelBusqueda()));
-
-        // Configurar ActionListener para el botón Playlists
-        getBtnPlaylists().addActionListener(e -> cambiarPanel(new PanelPlaylists()));
+        // ActionListener para el botón Configuración
+        /*
+        getBtnConfiguracion().addActionListener(e -> {
+            cambiarPanel(new PanelConfiguracion());
+            seleccionarBoton(btnConfiguracion, "src/main/java/com/View/icons/settings_focused.png");
+        });*/
     }
 
 
@@ -98,6 +115,36 @@ public class PantallaPrincipal extends JFrame {
         getPanelPrincipal().add(nuevoPanel);
         getPanelPrincipal().revalidate();
         getPanelPrincipal().repaint();
+    }
+    /**
+     * Crea un botón con un icono y un texto
+     * Ajusta el tamaño del icono a 20x20
+     * @param texto     Texto del botón
+     * @param rutaIcono Ruta del icono
+     * @return Botón con icono
+     */
+    private JButton crearBotonConIcono(String texto, String rutaIcono) {
+        JButton boton = new JButton(texto);
+        boton.setLayout(new BorderLayout());
+        boton.setForeground(Color.WHITE);
+        boton.setBackground(new Color(30, 30, 30));
+        boton.setIcon(new ImageIcon(new ImageIcon(rutaIcono).getImage().getScaledInstance(20, 20, Image.SCALE_SMOOTH)));
+        return boton;
+    };
+
+    /**
+     * Selecciona un botón y cambia su icono
+     * @param boton Botón a seleccionar
+     * @param rutaIcono Ruta del icono seleccionado
+     */
+    private void seleccionarBoton(JButton boton, String rutaIcono) {
+        // Restablecer iconos de todos los botones
+        btnInicio.setIcon(new ImageIcon(new ImageIcon("src/main/java/com/View/icons/home.png").getImage().getScaledInstance(20, 20, Image.SCALE_SMOOTH)));
+        btnBuscar.setIcon(new ImageIcon(new ImageIcon("src/main/java/com/View/icons/search.png").getImage().getScaledInstance(20, 20, Image.SCALE_SMOOTH)));
+        btnConfiguracion.setIcon(new ImageIcon(new ImageIcon("src/main/java/com/View/icons/settings.png").getImage().getScaledInstance(20, 20, Image.SCALE_SMOOTH)));
+        btnPlaylists.setIcon(new ImageIcon(new ImageIcon("src/main/java/com/View/icons/playlist.png").getImage().getScaledInstance(20, 20, Image.SCALE_SMOOTH)));
+        // Establecer icono del botón seleccionado
+        boton.setIcon(new ImageIcon(new ImageIcon(rutaIcono).getImage().getScaledInstance(20, 20, Image.SCALE_SMOOTH)));
     }
 
     public static void main(String[] args) {
