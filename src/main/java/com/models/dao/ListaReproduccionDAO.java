@@ -2,7 +2,10 @@ package com.models.dao;
 
 import com.models.ListaReproduccion;
 import com.models.util.BaseDAO;
+import org.apache.commons.dbutils.BasicRowProcessor;
+import org.apache.commons.dbutils.BeanProcessor;
 import org.apache.commons.dbutils.QueryRunner;
+import org.apache.commons.dbutils.RowProcessor;
 import org.apache.commons.dbutils.handlers.BeanListHandler;
 import org.apache.commons.dbutils.handlers.BeanHandler;
 import org.apache.commons.dbutils.handlers.ScalarHandler;
@@ -11,7 +14,9 @@ import org.slf4j.LoggerFactory;
 
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 public class ListaReproduccionDAO extends BaseDAO<ListaReproduccion> {
@@ -28,6 +33,18 @@ public class ListaReproduccionDAO extends BaseDAO<ListaReproduccion> {
         this.queryRunner = new QueryRunner();
     }
 
+    private static final Map<String, String> columnToPropertyOverrides = new HashMap<>();
+    static {
+        columnToPropertyOverrides.put("lista_id", "listaId");
+        columnToPropertyOverrides.put("usuario_id", "usuarioId");
+        columnToPropertyOverrides.put("fecha_creacion", "fechaCreacion");
+        columnToPropertyOverrides.put("privacidad", "privacidad");
+    }
+
+    private static final BeanProcessor beanProcessor = new BeanProcessor(columnToPropertyOverrides);
+    private static final RowProcessor rowProcessor = new BasicRowProcessor(beanProcessor);
+
+
     @Override
     protected String getTableName() {
         return "Lista_Reproduccion";
@@ -35,7 +52,7 @@ public class ListaReproduccionDAO extends BaseDAO<ListaReproduccion> {
 
     @Override
     protected BeanHandler<ListaReproduccion> getHandler() {
-        return new BeanHandler<>(ListaReproduccion.class);
+        return new BeanHandler<>(ListaReproduccion.class, rowProcessor);
     }
 
     public void insertarListaReproduccion(ListaReproduccion listaReproduccion) throws SQLException {

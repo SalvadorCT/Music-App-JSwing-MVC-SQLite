@@ -3,7 +3,10 @@ package com.models.dao;
 import com.models.Cancion;
 import com.models.util.BaseDAO;
 import com.models.util.GenericDAO;
+import org.apache.commons.dbutils.BasicRowProcessor;
+import org.apache.commons.dbutils.BeanProcessor;
 import org.apache.commons.dbutils.QueryRunner;
+import org.apache.commons.dbutils.RowProcessor;
 import org.apache.commons.dbutils.handlers.BeanListHandler;
 import org.apache.commons.dbutils.handlers.BeanHandler;
 import org.apache.commons.dbutils.handlers.ScalarHandler;
@@ -12,7 +15,9 @@ import org.slf4j.LoggerFactory;
 
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 public class CancionDAO extends BaseDAO<Cancion> implements GenericDAO<Cancion> {
@@ -35,9 +40,20 @@ public class CancionDAO extends BaseDAO<Cancion> implements GenericDAO<Cancion> 
         return "Canciones";
     }
 
+    private static final Map<String, String> columnToPropertyOverrides = new HashMap<>();
+    static {
+        columnToPropertyOverrides.put("cancion_id", "cancionId");
+        columnToPropertyOverrides.put("album_id", "albumId");
+        columnToPropertyOverrides.put("url_archivo", "urlArchivo");
+        columnToPropertyOverrides.put("conteo_reproducciones", "conteoReproducciones");
+    }
+
+    private static final BeanProcessor beanProcessor = new BeanProcessor(columnToPropertyOverrides);
+    private static final RowProcessor rowProcessor = new BasicRowProcessor(beanProcessor);
+
     @Override
     protected BeanHandler<Cancion> getHandler() {
-        return new BeanHandler<>(Cancion.class);
+        return new BeanHandler<>(Cancion.class, rowProcessor);
     }
 
 

@@ -86,5 +86,9 @@ public class VentanaLogin extends JFrame {
             ventana.setVisible(true);
         });
     }
+
+    public void mostrarMensaje(String s) {
+        JOptionPane.showMessageDialog(this, s);
+    }
 }
 

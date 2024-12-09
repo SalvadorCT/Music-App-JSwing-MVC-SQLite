@@ -4,7 +4,10 @@ package com.models.dao;
 import com.models.Artista;
 import com.models.util.BaseDAO;
 import com.models.util.GenericDAO;
+import org.apache.commons.dbutils.BasicRowProcessor;
+import org.apache.commons.dbutils.BeanProcessor;
 import org.apache.commons.dbutils.QueryRunner;
+import org.apache.commons.dbutils.RowProcessor;
 import org.apache.commons.dbutils.handlers.BeanListHandler;
 import org.apache.commons.dbutils.handlers.BeanHandler;
 import org.apache.commons.dbutils.handlers.ScalarHandler;
@@ -13,7 +16,9 @@ import org.slf4j.LoggerFactory;
 
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 public class ArtistaDAO extends BaseDAO<Artista> implements GenericDAO<Artista> {
@@ -30,6 +35,15 @@ public class ArtistaDAO extends BaseDAO<Artista> implements GenericDAO<Artista> 
         this.queryRunner = new QueryRunner();
     }
 
+    private static final Map<String, String> columnToPropertyOverrides = new HashMap<>();
+    static {
+        columnToPropertyOverrides.put("artista_id", "artistaId");
+        columnToPropertyOverrides.put("pais_origen", "paisOrigen");
+    }
+
+    private static final BeanProcessor beanProcessor = new BeanProcessor(columnToPropertyOverrides);
+    private static final RowProcessor rowProcessor = new BasicRowProcessor(beanProcessor);
+
     @Override
     protected String getTableName() {
         return "Artistas";
@@ -37,7 +51,7 @@ public class ArtistaDAO extends BaseDAO<Artista> implements GenericDAO<Artista> 
 
     @Override
     protected BeanHandler<Artista> getHandler() {
-        return new BeanHandler<>(Artista.class);
+        return new BeanHandler<>(Artista.class, rowProcessor);
     }
 
 

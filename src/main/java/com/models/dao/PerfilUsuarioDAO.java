@@ -4,7 +4,10 @@ import com.models.PerfilUsuario;
 
 import com.models.util.BaseDAO;
 import com.models.util.GenericDAO;
+import org.apache.commons.dbutils.BasicRowProcessor;
+import org.apache.commons.dbutils.BeanProcessor;
 import org.apache.commons.dbutils.QueryRunner;
+import org.apache.commons.dbutils.RowProcessor;
 import org.apache.commons.dbutils.handlers.BeanListHandler;
 import org.apache.commons.dbutils.handlers.BeanHandler;
 import org.apache.commons.dbutils.handlers.ScalarHandler;
@@ -13,7 +16,9 @@ import org.slf4j.LoggerFactory;
 
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 public class PerfilUsuarioDAO extends BaseDAO<PerfilUsuario> implements GenericDAO<PerfilUsuario> {
@@ -30,6 +35,18 @@ public class PerfilUsuarioDAO extends BaseDAO<PerfilUsuario> implements GenericD
         this.queryRunner = new QueryRunner();
     }
 
+    private static final Map<String, String> columnToPropertyOverrides = new HashMap<>();
+    static {
+        columnToPropertyOverrides.put("perfil_id", "perfilId");
+        columnToPropertyOverrides.put("usuario_id", "usuarioId");
+        columnToPropertyOverrides.put("foto_perfil", "fotoPerfil");
+        columnToPropertyOverrides.put("biografia", "biografia");
+    }
+
+    private static final BeanProcessor beanProcessor = new BeanProcessor(columnToPropertyOverrides);
+    private static final RowProcessor rowProcessor = new BasicRowProcessor(beanProcessor);
+
+
     @Override
     protected String getTableName() {
         return "Perfil_Usuario";
@@ -37,7 +54,7 @@ public class PerfilUsuarioDAO extends BaseDAO<PerfilUsuario> implements GenericD
 
     @Override
     protected BeanHandler<PerfilUsuario> getHandler() {
-        return new BeanHandler<>(PerfilUsuario.class);
+        return new BeanHandler<>(PerfilUsuario.class,rowProcessor);
     }
 
     @Override

@@ -4,6 +4,8 @@ import com.models.Usuario;
 import org.junit.jupiter.api.Test;
 
 import java.util.Date;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -16,7 +18,7 @@ class UsuarioTest {
         usuario.setNombre("Carlos");
         usuario.setEmail("carlos@example.com");
         usuario.setTipoSuscripcion("Premium");
-        usuario.setFechaCreacion(new Date());
+        usuario.setFechaCreacion(LocalDateTime.ofInstant(new Date().toInstant(), ZoneId.systemDefault()));
         usuario.setContrasenaHash("hashed_password");
         usuario.setEstado("Activo");
 
