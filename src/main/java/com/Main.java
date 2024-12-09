@@ -1,6 +1,4 @@
 package com;
-
-
 import com.View.VentanaLogin;
 import com.controller.LoginController;
 import com.models.dao.UsuarioDAO;

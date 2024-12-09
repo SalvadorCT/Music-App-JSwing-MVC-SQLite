@@ -49,6 +49,7 @@ public class PantallaPrincipal extends JFrame {
         for (JButton boton : botones) {
             boton.setBackground(new Color(30, 30, 30));
             boton.setForeground(Color.WHITE);
+            setIconImage(new ImageIcon("src/main/java/com/View/icons/JPotify.png").getImage());
             boton.setFocusPainted(false);
             boton.setBorderPainted(false);
             boton.setAlignmentX(Component.CENTER_ALIGNMENT);
