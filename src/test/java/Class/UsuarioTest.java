@@ -18,7 +18,7 @@ class UsuarioTest {
         usuario.setNombre("Carlos");
         usuario.setEmail("carlos@example.com");
         usuario.setTipoSuscripcion("Premium");
-        usuario.setFechaCreacion(LocalDateTime.ofInstant(new Date().toInstant(), ZoneId.systemDefault()));
+        usuario.setFechaCreacion(System.currentTimeMillis());
         usuario.setContrasenaHash("hashed_password");
         usuario.setEstado("Activo");
 
