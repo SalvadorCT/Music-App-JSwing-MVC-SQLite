@@ -23,6 +23,7 @@ public class PantallaPrincipal extends JFrame {
 
     private final PanelReproductor panelReproductor;
     private final PanelDetallesCancion panelDetallesCancion;
+    private int usuarioActualId;
 
     private void inicializar() throws SQLException {
         // Establecer el panel inicial
@@ -119,12 +120,13 @@ public class PantallaPrincipal extends JFrame {
         });
 
     }
-
-
-
+    public void setUsuarioActualId(int usuarioActualId) {
+        this.usuarioActualId = usuarioActualId;
+    }
     private int obtenerIdUsuarioActual() {
         // Simular usuario actual con ID fijo para prueba
-        return 1;
+        return 8;
+        //return usuarioActualId;
     }
 
     public void cambiarPanel(JPanel nuevoPanel) {
