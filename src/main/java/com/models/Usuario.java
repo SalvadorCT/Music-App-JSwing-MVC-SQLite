@@ -6,8 +6,8 @@ public @Data class Usuario {
     private int usuarioId;
     private String nombre;
     private String email;
-    private String tipo_Suscripcion;
-    private Long fecha_Creacion;
-    private String contrasena_Hash;
+    private String tipoSuscripcion;
+    private Long fechaCreacion;
+    private String contrasenaoaHash;
     private String estado;
 }

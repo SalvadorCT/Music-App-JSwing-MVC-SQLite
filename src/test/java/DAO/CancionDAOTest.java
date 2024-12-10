@@ -42,7 +42,7 @@ class CancionDAOTest {
         cancion.setTitulo("Prueba Cancion");
         cancion.setDuracion(210);
         cancion.setAlbum_Id(1);
-        cancion.setUrlArchivo("http://archivo.com/cancion.mp3");
+        cancion.setUrl_archivo("http://archivo.com/cancion.mp3");
         cancion.setConteo_Reproducciones(100);
 
         cancionDAO.insertar(cancion);
@@ -60,7 +60,7 @@ class CancionDAOTest {
         cancion.setTitulo("Otra Cancion");
         cancion.setDuracion(300);
         cancion.setAlbum_Id(2);
-        cancion.setUrlArchivo("http://archivo.com/otra_cancion.mp3");
+        cancion.setUrl_archivo("http://archivo.com/otra_cancion.mp3");
         cancion.setConteo_Reproducciones(50);
 
         cancionDAO.insertar(cancion);
@@ -77,7 +77,7 @@ class CancionDAOTest {
         cancion.setTitulo(null);
         cancion.setDuracion(0);
         cancion.setAlbum_Id(0);
-        cancion.setUrlArchivo(null);
+        cancion.setUrl_archivo(null);
         cancion.setConteo_Reproducciones(0);
 
         assertThrows(SQLException.class, () -> cancionDAO.insertar(cancion));
@@ -89,7 +89,7 @@ class CancionDAOTest {
         cancion.setTitulo("Cancion Existente");
         cancion.setDuracion(180);
         cancion.setAlbum_Id(1);
-        cancion.setUrlArchivo("http://archivo.com/existente.mp3");
+        cancion.setUrl_archivo("http://archivo.com/existente.mp3");
         cancion.setConteo_Reproducciones(200);
 
         cancionDAO.insertar(cancion);
@@ -113,7 +113,7 @@ class CancionDAOTest {
         cancion.setTitulo("Cancion Inexistente");
         cancion.setDuracion(0);
         cancion.setAlbum_Id(0);
-        cancion.setUrlArchivo("http://archivo.com/inexistente.mp3");
+        cancion.setUrl_archivo("http://archivo.com/inexistente.mp3");
         cancion.setConteo_Reproducciones(0);
 
         assertThrows(SQLException.class, () -> cancionDAO.actualizar(cancion));
@@ -125,7 +125,7 @@ class CancionDAOTest {
         cancion.setTitulo("Cancion a Eliminar");
         cancion.setDuracion(180);
         cancion.setAlbum_Id(1);
-        cancion.setUrlArchivo("http://archivo.com/eliminar.mp3");
+        cancion.setUrl_archivo("http://archivo.com/eliminar.mp3");
         cancion.setConteo_Reproducciones(200);
 
         cancionDAO.insertar(cancion);

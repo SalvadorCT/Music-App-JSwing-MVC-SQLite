@@ -38,7 +38,7 @@ public class LoginController {
             try {
                 Optional<Usuario> usuarioOptional = usuarioDAO.obtenerPorEmail(correo).stream()
                         .filter(usuario -> correo.equals(usuario.getEmail()) &&
-                                (usuario.getContrasena_Hash() != null && usuario.getContrasena_Hash().equals(contrasena)))
+                                (usuario.getContrasenaoaHash() != null && usuario.getContrasenaoaHash().equals(contrasena)))
                         .findFirst();
 
                 if (usuarioOptional.isPresent()) {

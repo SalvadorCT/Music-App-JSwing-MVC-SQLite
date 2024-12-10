@@ -13,17 +13,17 @@ class UsuarioTest {
         usuario.setUsuarioId(1);
         usuario.setNombre("Carlos");
         usuario.setEmail("carlos@example.com");
-        usuario.setTipo_Suscripcion("Premium");
-        usuario.setFecha_Creacion(System.currentTimeMillis());
-        usuario.setContrasena_Hash("hashed_password");
+        usuario.setTipoSuscripcion("Premium");
+        usuario.setFechaCreacion(System.currentTimeMillis());
+        usuario.setContrasenaoaHash("hashed_password");
         usuario.setEstado("Activo");
 
         assertEquals(1, usuario.getUsuarioId());
         assertEquals("Carlos", usuario.getNombre());
         assertEquals("carlos@example.com", usuario.getEmail());
-        assertEquals("Premium", usuario.getTipo_Suscripcion());
-        assertNotNull(usuario.getFecha_Creacion());
-        assertEquals("hashed_password", usuario.getContrasena_Hash());
+        assertEquals("Premium", usuario.getTipoSuscripcion());
+        assertNotNull(usuario.getFechaCreacion());
+        assertEquals("hashed_password", usuario.getContrasenaoaHash());
         assertEquals("Activo", usuario.getEstado());
     }
 
