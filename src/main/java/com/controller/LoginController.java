@@ -14,7 +14,11 @@ import java.util.Optional;
 public class LoginController {
     private final VentanaLogin ventanaLogin;
     private final UsuarioDAO usuarioDAO;
-
+    /**
+     * Constructor que recibe la ventana de inicio de sesión y el DAO de Usuario.
+     * @param ventanaLogin Ventana de inicio de sesión.
+     * @param usuarioDAO   DAO de Usuario.
+     */
     public LoginController(VentanaLogin ventanaLogin, UsuarioDAO usuarioDAO) {
         this.ventanaLogin = ventanaLogin;
         this.usuarioDAO = usuarioDAO;
@@ -23,7 +27,9 @@ public class LoginController {
         ventanaLogin.getBotonLogin().addActionListener(new LoginActionListener());
         ventanaLogin.getBotonRegistro().addActionListener(new RegistroActionListener());
     }
-
+    /**
+     * Clase interna que implementa ActionListener para el botón de inicio de sesión.
+     */
     private class LoginActionListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
@@ -38,13 +44,14 @@ public class LoginController {
             try {
                 Optional<Usuario> usuarioOptional = usuarioDAO.obtenerPorEmail(correo).stream()
                         .filter(usuario -> correo.equals(usuario.getEmail()) &&
-                                (usuario.getContrasenaoaHash() != null && usuario.getContrasenaoaHash().equals(contrasena)))
+                                (usuario.getContrasenaHash() != null && usuario.getContrasenaHash().equals(contrasena)))
                         .findFirst();
 
                 if (usuarioOptional.isPresent()) {
                     ventanaLogin.mostrarMensaje("Inicio de sesión exitoso.");
                     // Aquí puedes implementar la lógica para redirigir a la ventana principal
                     PantallaPrincipal pantallaPrincipal = new PantallaPrincipal();
+                    PantallaPrincipalController pantallaPrincipalController = new PantallaPrincipalController(pantallaPrincipal, usuarioDAO);
                     pantallaPrincipal.setVisible(true);
                     ventanaLogin.dispose();
 
@@ -56,7 +63,9 @@ public class LoginController {
             }
         }
     }
-
+    /**
+     * Clase interna que implementa ActionListener para el botón de registro.
+     */
     private class RegistroActionListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
@@ -69,5 +78,4 @@ public class LoginController {
             ventanaLogin.dispose();
         }
     }
-
 }

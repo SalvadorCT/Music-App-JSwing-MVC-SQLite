@@ -21,7 +21,10 @@ public class PanelReproductor extends JPanel {
     private final JSlider sliderVolumen;
 
     private final PanelDetallesCancion panelDetallesCancion;
-
+    /**
+     * Constructor que inicializa los componentes del panel.
+     * @param panelDetallesCancion Panel de detalles de la canción
+     */
     public PanelReproductor(PanelDetallesCancion panelDetallesCancion) {
         this.panelDetallesCancion = panelDetallesCancion;
 
@@ -42,25 +45,13 @@ public class PanelReproductor extends JPanel {
         botonPlayPausa = crearBoton("▶");
         botonSiguiente = crearBoton(">>");
 
-        botonPlayPausa.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                reproduciendo = !reproduciendo;
-                if (reproduciendo) {
-                    botonPlayPausa.setText("||");
-                } else {
-                    botonPlayPausa.setText("▶");
-                }
-            }
-        });
-
         panelControles.add(botonAnterior);
         panelControles.add(botonPlayPausa);
         panelControles.add(botonSiguiente);
 
         add(panelControles, BorderLayout.CENTER);
 
-         // Slider de volumen
+        // Slider de volumen
         JPanel panelVolumen = new JPanel(new FlowLayout(FlowLayout.RIGHT));
         panelVolumen.setBackground(new Color(30, 30, 30));
 
@@ -77,8 +68,25 @@ public class PanelReproductor extends JPanel {
         panelVolumen.add(sliderVolumen);
 
         add(panelVolumen, BorderLayout.EAST);
-    }
 
+        botonPlayPausa.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                reproduciendo = !reproduciendo;
+                if (reproduciendo) {
+                    botonPlayPausa.setText("||");
+                } else {
+                    botonPlayPausa.setText("▶");
+                }
+            }
+        });
+    }
+    /**
+     * Crea un botón con el texto especificado y lo personaliza.
+     *
+     * @param texto Texto del botón
+     * @return Botón personalizado
+     */
     private JButton crearBoton(String texto) {
         JButton boton = new JButton(texto);
         boton.setBackground(new Color(50, 50, 50));
@@ -91,7 +99,7 @@ public class PanelReproductor extends JPanel {
     public void setCancionActual(String titulo) {
         etiquetaCancionActual.setText("Reproduciendo: " + titulo);
     }
-    public void setDetallesCancion(String titulo, String artista, String album, String rutaPortada) {
-        panelDetallesCancion.mostrarDetallesCancion(titulo, artista, album, rutaPortada);
+    public void setDetallesCancion(String titulo, String artista, String album, String ano, String genero, String pista, String duracion, String rutaPortada) {
+        panelDetallesCancion.mostrarDetallesCancion(titulo, artista, album, ano, genero, pista, duracion, rutaPortada);
     }
 }

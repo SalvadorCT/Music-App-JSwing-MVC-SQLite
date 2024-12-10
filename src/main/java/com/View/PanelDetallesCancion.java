@@ -4,10 +4,16 @@ import javax.swing.*;
 import java.awt.*;
 
 public class PanelDetallesCancion extends JPanel {
+    private final JLabel etiquetaPortada;
+
     private final JLabel etiquetaTitulo;
     private final JLabel etiquetaArtista;
     private final JLabel etiquetaAlbum;
-    private final JLabel etiquetaPortada;
+    private final JLabel etiquetaAno;
+    private final JLabel etiquetaGenero;
+    private final JLabel etiquetaPista;
+    private final JLabel etiquetaDuracion;
+
     private final JButton botonFavoritos;
     private final JButton botonCompartir;
 
@@ -47,15 +53,42 @@ public class PanelDetallesCancion extends JPanel {
         etiquetaAlbum.setFont(new Font("Arial", Font.PLAIN, 14));
         etiquetaAlbum.setAlignmentX(Component.LEFT_ALIGNMENT);
 
+        etiquetaAno = new JLabel("Año: N/A");
+        etiquetaAno.setForeground(Color.LIGHT_GRAY);
+        etiquetaAno.setFont(new Font("Arial", Font.PLAIN, 14));
+        etiquetaAno.setAlignmentX(Component.LEFT_ALIGNMENT);
+
+        etiquetaGenero = new JLabel("Género: N/A");
+        etiquetaGenero.setForeground(Color.LIGHT_GRAY);
+        etiquetaGenero.setFont(new Font("Arial", Font.PLAIN, 14));
+        etiquetaGenero.setAlignmentX(Component.LEFT_ALIGNMENT);
+
+        etiquetaPista = new JLabel("Pista: N/A");
+        etiquetaPista.setForeground(Color.LIGHT_GRAY);
+        etiquetaPista.setFont(new Font("Arial", Font.PLAIN, 14));
+        etiquetaPista.setAlignmentX(Component.LEFT_ALIGNMENT);
+
+        etiquetaDuracion = new JLabel("Duración: N/A");
+        etiquetaDuracion.setForeground(Color.LIGHT_GRAY);
+        etiquetaDuracion.setFont(new Font("Arial", Font.PLAIN, 14));
+        etiquetaDuracion.setAlignmentX(Component.LEFT_ALIGNMENT);
+
         panelDetalles.add(etiquetaTitulo);
         panelDetalles.add(Box.createRigidArea(new Dimension(0, 10))); // Espaciado vertical
         panelDetalles.add(etiquetaArtista);
         panelDetalles.add(Box.createRigidArea(new Dimension(0, 10)));
         panelDetalles.add(etiquetaAlbum);
+        panelDetalles.add(Box.createRigidArea(new Dimension(0, 10)));
+        panelDetalles.add(etiquetaAno);
+        panelDetalles.add(Box.createRigidArea(new Dimension(0, 10)));
+        panelDetalles.add(etiquetaGenero);
+        panelDetalles.add(Box.createRigidArea(new Dimension(0, 10)));
+        panelDetalles.add(etiquetaPista);
+        panelDetalles.add(Box.createRigidArea(new Dimension(0, 10)));
+        panelDetalles.add(etiquetaDuracion);
 
         add(panelDetalles, BorderLayout.CENTER);
 
-        // Botones de acción
         JPanel panelBotones = new JPanel();
         panelBotones.setLayout(new FlowLayout(FlowLayout.LEFT)); // Botones alineados a la izquierda
         panelBotones.setBackground(new Color(25, 25, 25));
@@ -77,12 +110,25 @@ public class PanelDetallesCancion extends JPanel {
 
         add(panelBotones, BorderLayout.SOUTH);
     }
-
-    // Método para mostrar los detalles de la canción
-    public void mostrarDetallesCancion(String titulo, String artista, String album, String rutaPortada) {
+    /**
+     * Muestra los detalles de una canción en el panel
+     * @param titulo Título de la canción
+     * @param artista Artista de la canción
+     * @param album Álbum de la canción
+     * @param ano Año de la canción
+     * @param genero Género de la canción
+     * @param pista Número de pista
+     * @param duracion Duración de la canción
+     * @param rutaPortada Ruta de la imagen de la portada
+     */
+    public void mostrarDetallesCancion(String titulo, String artista, String album, String ano, String genero, String pista, String duracion, String rutaPortada) {
         etiquetaTitulo.setText("Título: " + titulo);
         etiquetaArtista.setText("Artista: " + artista);
         etiquetaAlbum.setText("Álbum: " + album);
+        etiquetaAno.setText("Año: " + ano);
+        etiquetaGenero.setText("Género: " + genero);
+        etiquetaPista.setText("Pista: " + pista);
+        etiquetaDuracion.setText("Duración: " + duracion);
 
         if (rutaPortada != null && !rutaPortada.isEmpty()) {
             etiquetaPortada.setIcon(crearIconoEscalado(rutaPortada, 150, 150));

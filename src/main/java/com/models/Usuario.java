@@ -8,6 +8,6 @@ public @Data class Usuario {
     private String email;
     private String tipoSuscripcion;
     private Long fechaCreacion;
-    private String contrasenaoaHash;
+    private String contrasenaHash;
     private String estado;
 }
